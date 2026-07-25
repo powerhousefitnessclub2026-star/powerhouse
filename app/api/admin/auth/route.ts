@@ -1,26 +1,25 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
-import fs from 'fs';
-import path from 'path';
-
-const configFilePath = path.join(process.cwd(), 'lib/constants/admin-config.json');
+import connectToDatabase from '@/lib/db/mongodb';
+import GymData from '@/lib/models/GymData';
 
 export async function POST(request: Request) {
   try {
     const { username, password } = await request.json();
     
-    let validUsername = 'powerhouse';
-    let validPassword = 'powerhousegym';
+    let validUsername = process.env.ADMIN_USERNAME || 'powerhouse';
+    let validPassword = process.env.ADMIN_PASSWORD || 'powerhousegym';
 
-    if (fs.existsSync(configFilePath)) {
-      try {
-        const configStr = fs.readFileSync(configFilePath, 'utf8');
-        const config = JSON.parse(configStr);
-        if (config.username) validUsername = config.username;
-        if (config.password) validPassword = config.password;
-      } catch (e) {
-        console.error('Error reading admin config', e);
+    try {
+      await connectToDatabase();
+      const data = await GymData.findOne({});
+      
+      if (data && data.ADMIN_CREDENTIALS) {
+        if (data.ADMIN_CREDENTIALS.username) validUsername = data.ADMIN_CREDENTIALS.username;
+        if (data.ADMIN_CREDENTIALS.password) validPassword = data.ADMIN_CREDENTIALS.password;
       }
+    } catch (e) {
+      console.error('Error reading admin credentials from MongoDB', e);
     }
 
     if (username === validUsername && password === validPassword) {

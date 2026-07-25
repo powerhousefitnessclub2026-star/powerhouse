@@ -6,7 +6,7 @@ import { Award, Medal, Quote, Dumbbell, Flame, Sparkles, Crown } from 'lucide-re
 import { SectionHeader } from '@/components/ui/SectionHeader';
 import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
-import { TRAINERS } from '@/lib/constants/gym-data';
+import { useGymData } from '@/lib/context/GymDataContext';
 
 const floatTrophy = {
   animate: {
@@ -58,7 +58,10 @@ const accoladeItem = {
 };
 
 export const Trainers: React.FC = () => {
-  const trainer = TRAINERS[0]; // Trainer Harish
+  const { trainers } = useGymData();
+  const trainer = trainers?.[0]; // Trainer Harish
+
+  if (!trainer) return null;
 
   return (
     <section id="trainers" className="py-16 md:py-20 bg-[#000000] relative overflow-hidden">

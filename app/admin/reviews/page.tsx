@@ -10,7 +10,7 @@ export default function ReviewsPage() {
   const [hasChanges, setHasChanges] = useState(false);
 
   useEffect(() => {
-    fetch('/api/admin/data')
+    fetch('/api/admin/data?t=' + Date.now())
       .then(res => res.json())
       .then(data => {
         // Sort pending reviews first, then by latest if possible

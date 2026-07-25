@@ -1,11 +1,15 @@
 import React from 'react';
-import { MapPin, Phone, Mail, Clock, Instagram, Dumbbell } from 'lucide-react';
+import Link from 'next/link';
+import { Facebook, Instagram, Youtube, MapPin, Phone, Mail, ChevronRight, Clock, Dumbbell } from 'lucide-react';
 import { Logo } from '@/components/brand/Logo';
-import { GYM_INFO } from '@/lib/constants/gym-data';
 import { NAV_ITEMS } from '@/lib/constants/navigation';
+import { useGymData } from '@/lib/context/GymDataContext';
 import { formatPowerHouse } from '@/lib/utils/formatPowerHouse';
 
 export const Footer: React.FC = () => {
+  const currentYear = new Date().getFullYear();
+  const { gymInfo } = useGymData();
+
   return (
     <footer className="bg-[#040404] border-t border-white/10 text-neutral-400 font-sans pt-16 pb-12">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
@@ -18,7 +22,7 @@ export const Footer: React.FC = () => {
             </p>
             <div className="flex items-center gap-3 pt-2">
               <a
-                href={GYM_INFO.socials.instagram}
+                href={gymInfo.socials.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram"
@@ -27,7 +31,7 @@ export const Footer: React.FC = () => {
                 <Instagram className="w-5 h-5" />
               </a>
               <a
-                href={GYM_INFO.socials.whatsapp}
+                href={gymInfo.socials.whatsapp}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="WhatsApp"
@@ -73,7 +77,7 @@ export const Footer: React.FC = () => {
               Working Hours
             </h3>
             <div className="space-y-3 text-sm">
-              {GYM_INFO.workingHours.map((wh, idx) => (
+              {gymInfo.workingHours.map((wh, idx) => (
                 <div key={idx} className="flex items-start gap-3">
                   <Clock className="w-5 h-5 text-red-500 shrink-0 mt-0.5" />
                   <div>
@@ -84,7 +88,7 @@ export const Footer: React.FC = () => {
               ))}
               <div className="pt-2 text-xs text-red-400 font-medium bg-red-950/20 border border-red-900/30 p-2.5 rounded-xl flex items-center gap-2">
                 <Dumbbell className="w-4 h-4 shrink-0 text-amber-400" />
-                <span>Admission Fee: {GYM_INFO.admissionFee} (One-time)</span>
+                <span>Admission Fee: {gymInfo.admissionFee} (One-time)</span>
               </div>
             </div>
           </div>
@@ -97,18 +101,18 @@ export const Footer: React.FC = () => {
             <div className="space-y-3 text-sm">
               <div className="flex items-start gap-3">
                 <MapPin className="w-5 h-5 text-red-500 shrink-0 mt-0.5" />
-                <span>{GYM_INFO.address}</span>
+                <span>{gymInfo.address}</span>
               </div>
               <div className="flex items-center gap-3">
                 <Phone className="w-5 h-5 text-red-500 shrink-0" />
                 <a href="tel:+917373996262" className="hover:text-red-500 transition-colors">
-                  {GYM_INFO.phone}
+                  {gymInfo.phone}
                 </a>
               </div>
               <div className="flex items-center gap-3">
                 <Mail className="w-5 h-5 text-red-500 shrink-0" />
-                <a href={`mailto:${GYM_INFO.email}`} className="hover:text-red-500 transition-colors break-all">
-                  {GYM_INFO.email}
+                <a href={`mailto:${gymInfo.email}`} className="hover:text-red-500 transition-colors break-all">
+                  {gymInfo.email}
                 </a>
               </div>
             </div>

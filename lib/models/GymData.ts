@@ -9,6 +9,7 @@ export interface IGymData extends Document {
   REVIEWS: any[];
   HERO: any;
   CONTACT_OPTIONS: any;
+  ADMIN_CREDENTIALS?: any;
 }
 
 const GymDataSchema: Schema = new Schema({
@@ -19,7 +20,8 @@ const GymDataSchema: Schema = new Schema({
   GALLERY_ITEMS: { type: [Schema.Types.Mixed], default: [] },
   REVIEWS: { type: [Schema.Types.Mixed], default: [] },
   HERO: { type: Schema.Types.Mixed, default: {} },
-  CONTACT_OPTIONS: { type: Schema.Types.Mixed, default: {} }
+  CONTACT_OPTIONS: { type: Schema.Types.Mixed, default: {} },
+  ADMIN_CREDENTIALS: { type: Schema.Types.Mixed, default: { username: 'powerhouse', password: 'powerhousegym' } }
 }, { timestamps: true });
 
 export default mongoose.models.GymData || mongoose.model<IGymData>('GymData', GymDataSchema);

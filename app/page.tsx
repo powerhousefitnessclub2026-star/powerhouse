@@ -1,4 +1,6 @@
 import React from 'react';
+import connectToDatabase from '@/lib/db/mongodb';
+import GymData from '@/lib/models/GymData';
 import fs from 'fs';
 import path from 'path';
 import { GymDataProvider } from '@/lib/context/GymDataContext';
@@ -18,15 +20,22 @@ import { Footer } from '@/components/layout/Footer';
 
 export const revalidate = 0;
 
-export default function Home() {
-  const dataFilePath = path.join(process.cwd(), 'lib/constants/gym-data.json');
+export default async function Home() {
   let initialData = null;
   try {
-    if (fs.existsSync(dataFilePath)) {
-      initialData = JSON.parse(fs.readFileSync(dataFilePath, 'utf8'));
+    await connectToDatabase();
+    const data = await GymData.findOne({});
+    if (data) {
+      initialData = JSON.parse(JSON.stringify(data)); // Serialize mongoose document
+    } else {
+      // Fallback to local JSON if DB is empty
+      const dataFilePath = path.join(process.cwd(), 'lib/constants/gym-data.json');
+      if (fs.existsSync(dataFilePath)) {
+        initialData = JSON.parse(fs.readFileSync(dataFilePath, 'utf8'));
+      }
     }
   } catch (error) {
-    console.error('Failed to read gym data JSON:', error);
+    console.error('Failed to fetch gym data:', error);
   }
 
   return (

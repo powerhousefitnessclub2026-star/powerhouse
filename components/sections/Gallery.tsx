@@ -6,12 +6,13 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight, Layers, Grid } from 'lucide-react';
 import { SectionHeader } from '@/components/ui/SectionHeader';
 import { Lightbox } from '@/components/ui/Lightbox';
-import { GALLERY_ITEMS, GalleryItem } from '@/lib/constants/gym-data';
-import { formatPowerHouse } from '@/lib/utils/formatPowerHouse';
+import { useGymData } from '@/lib/context/GymDataContext';
+import { GalleryItem } from '@/lib/constants/gym-data';
 
 const CATEGORIES: GalleryItem['category'][] = ['All', 'Gym Floor', 'Equipment', 'Training'];
 
 export const Gallery: React.FC = () => {
+  const { galleryItems } = useGymData();
   const [selectedCategory, setSelectedCategory] = useState<GalleryItem['category']>('All');
   const [activeItem, setActiveItem] = useState<GalleryItem | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
@@ -33,8 +34,8 @@ export const Gallery: React.FC = () => {
 
   const filteredItems =
     selectedCategory === 'All'
-      ? GALLERY_ITEMS
-      : GALLERY_ITEMS.filter((item) => item.category === selectedCategory);
+      ? galleryItems
+      : galleryItems.filter((item) => item.category === selectedCategory);
 
   // Reset active index when category changes
   useEffect(() => {

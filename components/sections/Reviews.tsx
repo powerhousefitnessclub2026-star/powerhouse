@@ -3,9 +3,10 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Star, ChevronLeft, ChevronRight, Quote, Trophy, Trash2 } from 'lucide-react';
 import { SectionHeader } from '@/components/ui/SectionHeader';
+import { Card } from '@/components/ui/Card';
+import { useGymData } from '@/lib/context/GymDataContext';
 import { Review } from '@/lib/constants/gym-data';
 import { FADE_IN_UP } from '@/lib/animations/framer';
-import { useGymData } from '@/lib/context/GymDataContext';
 
 export const Reviews: React.FC = () => {
   const { reviews, refreshData } = useGymData();
@@ -79,9 +80,13 @@ export const Reviews: React.FC = () => {
         setIsFormOpen(false);
         // Refresh data to show the new review immediately
         await refreshData();
+      } else {
+        const errorData = await res.json();
+        alert(`Failed to submit review: ${errorData.error || 'Unknown error'}`);
       }
     } catch (err) {
       console.error(err);
+      alert('Network error. Failed to submit review.');
     }
   };
 

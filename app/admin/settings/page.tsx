@@ -18,7 +18,7 @@ export default function SettingsPage() {
   const [showPassword, setShowPassword] = useState(false);
 
   useEffect(() => {
-    fetch('/api/admin/data')
+    fetch('/api/admin/data?t=' + Date.now())
       .then(res => res.json())
       .then(data => {
         setGymInfo(data.GYM_INFO || {});

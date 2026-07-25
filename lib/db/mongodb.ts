@@ -17,7 +17,6 @@ async function connectToDatabase() {
   if (!cached.promise) {
     const opts = {
       bufferCommands: false,
-      family: 4, // Force IPv4
     };
 
     cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) => {

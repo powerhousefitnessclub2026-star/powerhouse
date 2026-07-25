@@ -1,14 +1,12 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
-import fs from 'fs';
-import path from 'path';
+import connectToDatabase from '@/lib/db/mongodb';
+import GymData from '@/lib/models/GymData';
 
 function checkAuth(cookieStore: any) {
   const token = cookieStore.get('admin-token')?.value;
   return token === 'powerhouse-authenticated-session';
 }
-
-const configFilePath = path.join(process.cwd(), 'lib/constants/admin-config.json');
 
 export async function POST(request: Request) {
   try {
@@ -22,8 +20,12 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Username and password required' }, { status: 400 });
     }
 
-    const newConfig = { username, password };
-    fs.writeFileSync(configFilePath, JSON.stringify(newConfig, null, 2), 'utf8');
+    await connectToDatabase();
+    await GymData.findOneAndUpdate(
+      {},
+      { $set: { ADMIN_CREDENTIALS: { username, password } } },
+      { new: true, upsert: true }
+    );
 
     return NextResponse.json({ success: true });
   } catch (error) {

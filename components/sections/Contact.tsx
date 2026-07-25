@@ -11,13 +11,12 @@ import { Input } from '@/components/ui/Input';
 import { Select } from '@/components/ui/Select';
 import { Textarea } from '@/components/ui/Textarea';
 import { Button } from '@/components/ui/Button';
-import { contactFormSchema, ContactFormData } from '@/lib/schemas/contact-schema';
-import { GYM_INFO } from '@/lib/constants/gym-data';
-import { FADE_IN_UP } from '@/lib/animations/framer';
 import { useGymData } from '@/lib/context/GymDataContext';
+import { contactFormSchema, type ContactFormData } from '@/lib/schemas/contact-schema';
+import { FADE_IN_UP } from '@/lib/animations/framer';
 
 export const Contact: React.FC = () => {
-  const { contactOptions } = useGymData();
+  const { gymInfo, contactOptions } = useGymData();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState<string | null>(null);
   const [serverError, setServerError] = useState<string | null>(null);
@@ -117,7 +116,7 @@ export const Contact: React.FC = () => {
                   </div>
                   <div>
                     <p className="font-semibold text-white">Email Address</p>
-                    <p className="text-xs text-neutral-400 break-all">{GYM_INFO.email}</p>
+                    <p className="text-xs text-neutral-400 break-all">{gymInfo.email}</p>
                   </div>
                 </div>
 
@@ -127,7 +126,7 @@ export const Contact: React.FC = () => {
                   </div>
                   <div>
                     <p className="font-semibold text-white">Location</p>
-                    <p className="text-xs text-neutral-400">{GYM_INFO.address}</p>
+                    <p className="text-xs text-neutral-400">{gymInfo.address}</p>
                   </div>
                 </div>
               </div>

@@ -9,7 +9,7 @@ export default function MembershipsPage() {
   const [saving, setSaving] = useState(false);
 
   useEffect(() => {
-    fetch('/api/admin/data')
+    fetch('/api/admin/data?t=' + Date.now())
       .then(res => res.json())
       .then(data => {
         setPlans(data.MEMBERSHIP_PLANS || []);

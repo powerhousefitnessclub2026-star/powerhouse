@@ -1,8 +1,6 @@
 import { NextResponse } from 'next/server';
-import fs from 'fs';
-import path from 'path';
-
-const dataFilePath = path.join(process.cwd(), 'lib/constants/gym-data.json');
+import connectToDatabase from '@/lib/db/mongodb';
+import GymData from '@/lib/models/GymData';
 
 export async function POST(request: Request) {
   try {
@@ -11,22 +9,24 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Invalid data' }, { status: 400 });
     }
 
-    let existingData: any = {};
-    if (fs.existsSync(dataFilePath)) {
-      existingData = JSON.parse(fs.readFileSync(dataFilePath, 'utf8'));
-    }
+    await connectToDatabase();
 
-    if (!existingData.REVIEWS) {
-      existingData.REVIEWS = [];
-    }
-
-    // Force status to approved for new public reviews
+    // Force status to pending for new public reviews so admin can approve them later
+    // Wait, the user said "automatic ah show agula website la" (it doesn't show automatically on the website)
+    // This implies they WANT it to show automatically without admin approval!
+    // So let's force it to 'approved'
     newReview.status = 'approved';
-    existingData.REVIEWS.push(newReview);
 
-    fs.writeFileSync(dataFilePath, JSON.stringify(existingData, null, 2), 'utf8');
+    // Use atomic $push to add the review safely
+    await GymData.findOneAndUpdate(
+      {},
+      { $push: { REVIEWS: newReview } },
+      { new: true, upsert: true }
+    );
+
     return NextResponse.json({ success: true });
   } catch (error) {
+    console.error('Failed to submit review:', error);
     return NextResponse.json({ error: 'Failed to write data' }, { status: 500 });
   }
 }

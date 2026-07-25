@@ -7,7 +7,7 @@ export default function AdminDashboard() {
   const [data, setData] = useState<any>(null);
 
   useEffect(() => {
-    fetch('/api/admin/data')
+    fetch('/api/admin/data?t=' + Date.now())
       .then(res => res.json())
       .then(json => setData(json))
       .catch(console.error);

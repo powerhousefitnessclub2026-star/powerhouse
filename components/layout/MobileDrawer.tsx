@@ -4,10 +4,9 @@ import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Phone, Dumbbell } from 'lucide-react';
 import { NAV_ITEMS } from '@/lib/constants/navigation';
-import { GYM_INFO } from '@/lib/constants/gym-data';
 import { Button } from '@/components/ui/Button';
 import { Logo } from '@/components/brand/Logo';
-
+import { useGymData } from '@/lib/context/GymDataContext';
 import { formatPowerHouse } from '@/lib/utils/formatPowerHouse';
 
 interface MobileDrawerProps {
@@ -17,6 +16,8 @@ interface MobileDrawerProps {
 }
 
 export const MobileDrawer: React.FC<MobileDrawerProps> = ({ isOpen, onClose, activeSection }) => {
+  const { gymInfo } = useGymData();
+
   return (
     <AnimatePresence>
       {isOpen && (
@@ -89,7 +90,7 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({ isOpen, onClose, act
 
               <div className="flex items-center justify-center gap-2 text-xs text-neutral-400 font-sans">
                 <Phone className="w-4 h-4 text-red-500" />
-                <span>{GYM_INFO.phone}</span>
+                <span>{gymInfo?.phone}</span>
               </div>
             </div>
           </motion.div>

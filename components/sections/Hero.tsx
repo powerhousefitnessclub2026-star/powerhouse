@@ -186,10 +186,7 @@ export const Hero: React.FC = () => {
 <span className="block font-heading text-3xl sm:text-4xl font-bold text-white">
   5.0 <span className="text-white">★</span>
 </span>
-
-<span className="text-xs sm:text-sm text-neutral-400 font-semibold uppercase tracking-wider">
-  
-</span>            <span className="text-xs sm:text-sm text-neutral-400 font-semibold uppercase tracking-wider">Google Reviews</span>
+<span className="text-xs sm:text-sm text-neutral-400 font-semibold uppercase tracking-wider">Google Reviews</span>
           </div>
           <div className="text-center">
             <span className="block font-heading text-3xl sm:text-4xl font-bold text-red-500">50</span>
