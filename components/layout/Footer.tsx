@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import Link from 'next/link';
 import { Facebook, Instagram, Youtube, MapPin, Phone, Mail, ChevronRight, Clock, Dumbbell } from 'lucide-react';
