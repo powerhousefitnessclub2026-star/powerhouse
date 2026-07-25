@@ -2,8 +2,7 @@ import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import connectToDatabase from '@/lib/db/mongodb';
 import GymData from '@/lib/models/GymData';
-import fs from 'fs';
-import path from 'path';
+import * as fallbackData from '@/lib/constants/gym-data';
 
 export const dynamic = 'force-dynamic';
 
@@ -12,22 +11,24 @@ function checkAuth(cookieStore: any) {
   return token === 'powerhouse-authenticated-session';
 }
 
-const dataFilePath = path.join(process.cwd(), 'lib/constants/gym-data.json');
-
 export async function GET() {
   try {
     await connectToDatabase();
     let data = await GymData.findOne({});
 
     if (!data) {
-      // Seed database with local JSON if empty
-      if (fs.existsSync(dataFilePath)) {
-        const dataStr = fs.readFileSync(dataFilePath, 'utf8');
-        const localData = JSON.parse(dataStr);
-        data = await GymData.create(localData);
-      } else {
-        return NextResponse.json({ error: 'No data available' }, { status: 404 });
-      }
+      // Seed database with imported constants if empty
+      const localData = {
+        GYM_INFO: fallbackData.GYM_INFO,
+        SERVICES: fallbackData.SERVICES,
+        MEMBERSHIP_PLANS: fallbackData.MEMBERSHIP_PLANS,
+        TRAINERS: fallbackData.TRAINERS,
+        GALLERY_ITEMS: fallbackData.GALLERY_ITEMS,
+        REVIEWS: fallbackData.REVIEWS,
+        HERO: fallbackData.HERO,
+        CONTACT_OPTIONS: fallbackData.CONTACT_OPTIONS
+      };
+      data = await GymData.create(localData);
     }
 
     return NextResponse.json(data);
