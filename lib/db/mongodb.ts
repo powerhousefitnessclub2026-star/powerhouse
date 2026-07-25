@@ -3,10 +3,10 @@ import mongoose from 'mongoose';
 // Fallback to hardcoded URI for now to ensure it works without ENV setup
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb+srv://akalyakrish14_db_user:3aw7JhlbTPtJWkEl@cluster0.96nafcz.mongodb.net/powerhouse?retryWrites=true&w=majority';
 
-let cached = (global as any).mongoose;
+let cached = (globalThis as any).mongoose;
 
 if (!cached) {
-  cached = (global as any).mongoose = { conn: null, promise: null };
+  cached = (globalThis as any).mongoose = { conn: null, promise: null };
 }
 
 async function connectToDatabase() {

@@ -16,7 +16,10 @@ const inter = Inter({
   display: 'swap',
 });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://powerhousefitness.com';
+let siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://powerhousefitness.com';
+if (!siteUrl.startsWith('http://') && !siteUrl.startsWith('https://')) {
+  siteUrl = 'https://' + siteUrl;
+}
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
