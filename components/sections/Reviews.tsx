@@ -81,7 +81,7 @@ export const Reviews: React.FC = () => {
         // Refresh data to show the new review immediately
         await refreshData();
       } else {
-        const errorData = await res.json();
+        const errorData = await res.json().catch(() => ({}));
         alert(`Failed to submit review: ${errorData.error || 'Unknown error'}`);
       }
     } catch (err) {
