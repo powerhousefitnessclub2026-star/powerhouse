@@ -16,16 +16,18 @@ export const IntroLoader: React.FC = () => {
     // Lock body scrolling during intro animation on mobile & desktop
     document.body.style.overflow = 'hidden';
 
-    // Check session storage
-    const hasSeen = sessionStorage.getItem('has_seen_powerhouse_intro');
-    if (hasSeen) {
-      setIsVisible(false);
-      document.body.style.overflow = '';
-      return;
+    // Check session storage safely
+    try {
+      const hasSeen = sessionStorage.getItem('has_seen_powerhouse_intro');
+      if (hasSeen) {
+        setIsVisible(false);
+        document.body.style.overflow = '';
+        return;
+      }
+      sessionStorage.setItem('has_seen_powerhouse_intro', 'true');
+    } catch (error) {
+      console.warn('Session storage is not available', error);
     }
-
-    // Mark intro as seen for this session
-    sessionStorage.setItem('has_seen_powerhouse_intro', 'true');
 
     // Auto fade out after animation duration (~1.8 seconds)
     const timer = setTimeout(() => {
