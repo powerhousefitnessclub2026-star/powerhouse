@@ -8,39 +8,12 @@ import { LayoutDashboard, Users, Dumbbell, Image as ImageIcon, Star, LogOut, Loa
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const router = useRouter();
-  const [isChecking, setIsChecking] = useState(true);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-
-  // Simple client-side auth check
-  useEffect(() => {
-    if (pathname === '/admin/login') {
-      setIsChecking(false);
-      return;
-    }
-
-    // Check if cookie exists. Note: document.cookie might not show httpOnly cookies.
-    // Instead we rely on an API call to test if we are logged in, or just let API calls fail.
-    // Let's do a quick check via an API that requires auth.
-    fetch('/api/admin/check-auth')
-      .then(res => {
-        if (!res.ok) throw new Error('Unauthorized');
-        setIsChecking(false);
-      })
-      .catch(() => {
-        router.push('/admin/login');
-      });
-  }, [pathname, router]);
+  // Server-side middleware handles authentication and redirects.
+  // We no longer need to manually check cookies on the client side.
 
   if (pathname === '/admin/login') {
     return <>{children}</>;
-  }
-
-  if (isChecking) {
-    return (
-      <div className="min-h-screen bg-[#040404] flex items-center justify-center">
-        <Loader2 className="w-10 h-10 text-amber-500 animate-spin" />
-      </div>
-    );
   }
 
   const handleLogout = async () => {
