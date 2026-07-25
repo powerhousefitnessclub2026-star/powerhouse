@@ -1,22 +1,11 @@
 import { NextResponse } from 'next/server';
-import fs from 'fs';
-import path from 'path';
 import { cookies } from 'next/headers';
+import connectToDatabase from '@/lib/db/mongodb';
+import GymData from '@/lib/models/GymData';
 
 function checkAuth(cookieStore: any) {
   const token = cookieStore.get('admin-token')?.value;
   return token === 'powerhouse-authenticated-session';
-}
-
-const dataFilePath = path.join(process.cwd(), 'lib/constants/gym-data.json');
-
-function readData() {
-  if (!fs.existsSync(dataFilePath)) return null;
-  return JSON.parse(fs.readFileSync(dataFilePath, 'utf8'));
-}
-
-function writeData(data: any) {
-  fs.writeFileSync(dataFilePath, JSON.stringify(data, null, 2), 'utf8');
 }
 
 export async function GET() {
@@ -26,10 +15,14 @@ export async function GET() {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const data = readData();
-    if (!data) return NextResponse.json({ error: 'Data file not found' }, { status: 404 });
+    await connectToDatabase();
+    const data = await GymData.findOne({});
+    if (!data) return NextResponse.json({ error: 'Data not found' }, { status: 404 });
 
-    return NextResponse.json(data.LEADS || []);
+    // Assuming LEADS is stored in the document, if it doesn't exist we'll just return []
+    // But wait, GymData schema might not have LEADS, we should add it if it doesn't exist.
+    const leads = (data as any).LEADS || [];
+    return NextResponse.json(leads);
   } catch (error) {
     return NextResponse.json({ error: 'Failed to read leads' }, { status: 500 });
   }
@@ -42,8 +35,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Missing name or phone' }, { status: 400 });
     }
 
-    const data = readData();
-    if (!data) return NextResponse.json({ error: 'Data file not found' }, { status: 404 });
+    await connectToDatabase();
 
     const newLead = {
       id: 'l_' + Date.now() + '_' + Math.random().toString(36).substr(2, 4),
@@ -55,10 +47,12 @@ export async function POST(request: Request) {
       date: new Date().toISOString(),
     };
 
-    data.LEADS = data.LEADS || [];
-    data.LEADS.unshift(newLead);
+    await GymData.findOneAndUpdate(
+      {},
+      { $push: { LEADS: { $each: [newLead], $position: 0 } } }, // Push to beginning of array
+      { new: true, upsert: true }
+    );
 
-    writeData(data);
     return NextResponse.json({ success: true, lead: newLead });
   } catch (error) {
     return NextResponse.json({ error: 'Failed to submit contact request' }, { status: 500 });
@@ -78,11 +72,13 @@ export async function DELETE(request: Request) {
       return NextResponse.json({ error: 'Missing lead ID' }, { status: 400 });
     }
 
-    const data = readData();
-    if (!data) return NextResponse.json({ error: 'Data not found' }, { status: 404 });
-
-    data.LEADS = (data.LEADS || []).filter((l: any) => l.id !== id);
-    writeData(data);
+    await connectToDatabase();
+    
+    // Pull the lead with matching id from the array
+    await GymData.findOneAndUpdate(
+      {},
+      { $pull: { LEADS: { id: id } } }
+    );
 
     return NextResponse.json({ success: true });
   } catch (error) {
