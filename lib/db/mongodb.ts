@@ -17,9 +17,12 @@ async function connectToDatabase() {
   if (!cached.promise) {
     const opts = {
       bufferCommands: false,
+      family: 4, // Force IPv4 for Vercel + Atlas Free Tier compatibility
     };
 
-    cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) => {
+    const cleanUri = MONGODB_URI.replace(/['"]/g, '').trim();
+
+    cached.promise = mongoose.connect(cleanUri, opts).then((mongoose) => {
       console.log('Successfully connected to MongoDB');
       return mongoose;
     });
