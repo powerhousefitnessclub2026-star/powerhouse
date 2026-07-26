@@ -84,13 +84,14 @@ export function middleware(request: NextRequest) {
 export const config = {
   matcher: [
     /*
-     * Match all request paths except for the ones starting with:
-     * - api (unless it starts with api/admin)
+     * Match all request paths except for:
      * - _next/static (static files)
      * - _next/image (image optimization files)
      * - favicon.ico (favicon file)
+     * - sitemap.xml (SEO sitemap)
+     * - robots.txt (SEO robots)
      * - assets (inside public folder)
      */
-    '/((?!_next/static|_next/image|favicon.ico|assets|assets/assets).*)',
+    '/((?!_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|assets|assets/assets).*)',
   ],
 };
