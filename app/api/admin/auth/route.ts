@@ -7,7 +7,6 @@ export async function POST(request: Request) {
   try {
     const { username, password } = await request.json();
     
-    let validUsername = process.env.ADMIN_USERNAME || 'powerhouse';
     let validPassword = process.env.ADMIN_PASSWORD || 'powerhousegym';
 
     try {
@@ -15,14 +14,22 @@ export async function POST(request: Request) {
       const data = await GymData.findOne({});
       
       if (data && data.ADMIN_CREDENTIALS) {
-        if (data.ADMIN_CREDENTIALS.username) validUsername = data.ADMIN_CREDENTIALS.username;
         if (data.ADMIN_CREDENTIALS.password) validPassword = data.ADMIN_CREDENTIALS.password;
       }
     } catch (e) {
       console.error('Error reading admin credentials from MongoDB', e);
     }
 
-    if (username === validUsername && password === validPassword) {
+    // Configured authorized emails
+    let allowedEmails = ['powerhousefitnessclub2026@gmail.com', 'akalyakrish14@gmail.com'];
+    if (process.env.AUTHORIZED_EMAILS) {
+      allowedEmails = process.env.AUTHORIZED_EMAILS.split(',').map((e) => e.trim().toLowerCase());
+    }
+
+    const enteredEmail = (username || '').trim().toLowerCase();
+    const isAuthorizedEmail = allowedEmails.includes(enteredEmail);
+
+    if (isAuthorizedEmail && password === validPassword) {
       const cookieStore = await cookies();
       cookieStore.set('admin-token', 'powerhouse-authenticated-session', {
         httpOnly: true,

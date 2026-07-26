@@ -51,11 +51,10 @@ export const Logo: React.FC<LogoProps> = ({ className = '', showText = true, siz
     setErrorMsg('');
     
     const input = emailInput.trim().toLowerCase();
-    const allowed = [
-      'powerhouse',
-      'powerhousefitnessclub2026@gmail.com',
-      'akalyakrish14@gmail.com'
-    ];
+    let allowed = ['powerhousefitnessclub2026@gmail.com', 'akalyakrish14@gmail.com'];
+    if (process.env.NEXT_PUBLIC_AUTHORIZED_EMAILS) {
+      allowed = process.env.NEXT_PUBLIC_AUTHORIZED_EMAILS.split(',').map((item) => item.trim().toLowerCase());
+    }
 
     if (allowed.includes(input)) {
       // Set the temporary session cookie (valid for 5 minutes/300 seconds)

@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Lock, User, Loader2, Eye, EyeOff } from 'lucide-react';
+import { Lock, Mail, Loader2, Eye, EyeOff } from 'lucide-react';
 
 export default function LoginPage() {
   const [username, setUsername] = useState('');
@@ -56,17 +56,17 @@ export default function LoginPage() {
         <form onSubmit={handleLogin} className="space-y-5">
           <div>
             <label className="block text-xs font-semibold uppercase tracking-wider text-neutral-400 mb-2">
-              Username
+              Email Address
             </label>
             <div className="relative">
-              <User className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-neutral-500" />
+              <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-neutral-500" />
               <input
-                type="text"
+                type="email"
                 required
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 className="w-full pl-11 pr-4 py-3 rounded-xl bg-[#121212] border border-white/10 text-white focus:outline-none focus:border-amber-500 transition-colors"
-                placeholder="Enter username"
+                placeholder="Enter email address"
               />
             </div>
           </div>
