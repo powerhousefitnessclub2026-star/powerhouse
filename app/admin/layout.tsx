@@ -9,8 +9,34 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const pathname = usePathname();
   const router = useRouter();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  // Server-side middleware handles authentication and redirects.
-  // We no longer need to manually check cookies on the client side.
+
+  // Client-side authentication verification and back-forward cache protection
+  useEffect(() => {
+    if (pathname === '/admin/login') return;
+
+    const verifyAuth = async () => {
+      try {
+        const res = await fetch('/api/admin/check-auth');
+        if (!res.ok) {
+          router.push('/');
+        }
+      } catch (err) {
+        router.push('/');
+      }
+    };
+
+    verifyAuth();
+
+    const handlePageShow = (event: PageTransitionEvent) => {
+      // If restored from browser back-forward cache, force reload to trigger middleware check
+      if (event.persisted) {
+        window.location.reload();
+      }
+    };
+
+    window.addEventListener('pageshow', handlePageShow);
+    return () => window.removeEventListener('pageshow', handlePageShow);
+  }, [pathname, router]);
 
   if (pathname === '/admin/login') {
     return <>{children}</>;
@@ -18,7 +44,9 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
   const handleLogout = async () => {
     await fetch('/api/admin/auth', { method: 'DELETE' });
-    router.push('/admin/login');
+    // Expire the allowed-session cookie client-side
+    document.cookie = 'admin-allowed-session=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC; SameSite=Strict';
+    router.push('/');
   };
 
   const menuItems = [

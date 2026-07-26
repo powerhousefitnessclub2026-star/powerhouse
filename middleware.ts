@@ -10,6 +10,27 @@ export function middleware(request: NextRequest) {
   const isAdminPath = pathname.startsWith('/admin');
   const isAdminApi = pathname.startsWith('/api/admin');
 
+  // Handle non-admin paths: Clear admin sessions immediately when navigating away
+  if (!isAdminPath && !isAdminApi) {
+    const hasAdminToken = request.cookies.has('admin-token');
+    const hasAllowedSession = request.cookies.has('admin-allowed-session');
+
+    if (hasAdminToken || hasAllowedSession) {
+      const response = NextResponse.next();
+      if (hasAdminToken) {
+        response.cookies.set('admin-token', '', { maxAge: 0, path: '/' });
+      }
+      if (hasAllowedSession) {
+        response.cookies.set('admin-allowed-session', '', { maxAge: 0, path: '/' });
+      }
+      response.headers.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+      response.headers.set('Pragma', 'no-cache');
+      response.headers.set('Expires', '0');
+      return response;
+    }
+    return NextResponse.next();
+  }
+
   // Paths that require Chrome & proper authorization
   if (isAdminPath || isAdminApi) {
     // 1. Enforce Google Chrome browser restriction
@@ -40,7 +61,11 @@ export function middleware(request: NextRequest) {
         if (!isAllowedAccess) {
           return NextResponse.redirect(new URL('/', request.url));
         }
-        return NextResponse.next();
+        const response = NextResponse.next();
+        response.headers.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+        response.headers.set('Pragma', 'no-cache');
+        response.headers.set('Expires', '0');
+        return response;
       }
 
       if (isAuthApi) {
@@ -66,9 +91,24 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(dashboardUrl);
   }
 
-  return NextResponse.next();
+  // Set cache control for authorized admin routes
+  const response = NextResponse.next();
+  response.headers.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+  response.headers.set('Pragma', 'no-cache');
+  response.headers.set('Expires', '0');
+  return response;
 }
 
 export const config = {
-  matcher: ['/admin/:path*', '/api/admin/:path*'],
+  matcher: [
+    /*
+     * Match all request paths except for the ones starting with:
+     * - api (unless it starts with api/admin)
+     * - _next/static (static files)
+     * - _next/image (image optimization files)
+     * - favicon.ico (favicon file)
+     * - assets (inside public folder)
+     */
+    '/((?!_next/static|_next/image|favicon.ico|assets|assets/assets).*)',
+  ],
 };
