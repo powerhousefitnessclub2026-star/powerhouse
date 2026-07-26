@@ -22,17 +22,7 @@ export const Logo: React.FC<LogoProps> = ({ className = '', showText = true, siz
   useEffect(() => {
     if (clickCount >= 5) {
       setClickCount(0);
-      
-      // Detect Chrome browser client-side
-      const ua = typeof window !== 'undefined' ? window.navigator.userAgent : '';
-      const isChrome = /Chrome|CriOS/.test(ua) && !/Edge|Edg|OPR|Chromium|Vivaldi|YaBrowser/.test(ua);
-      
-      if (isChrome) {
-        setShowModal(true);
-      } else {
-        // Keep it completely silent/hidden on non-Chrome browsers
-        console.log("Admin entry attempt rejected: Access restricted to Google Chrome.");
-      }
+      setShowModal(true);
     }
     
     const timer = setTimeout(() => {

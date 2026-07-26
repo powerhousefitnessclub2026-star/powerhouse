@@ -1,4 +1,4 @@
-import { NextResponse, userAgent } from 'next/server';
+import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
 export function middleware(request: NextRequest) {
@@ -31,28 +31,9 @@ export function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  // Paths that require Chrome & proper authorization
+  // Protect all admin pages and API endpoints
   if (isAdminPath || isAdminApi) {
-    // 1. Enforce Google Chrome browser restriction (exempting auth API routes so login can complete)
-    const isAuthApi = pathname === '/api/admin/auth' || pathname === '/api/admin/check-auth';
-    const ua = request.headers.get('user-agent') || '';
-    const { browser } = userAgent(request);
-    const isChrome = 
-      (browser.name && browser.name.toLowerCase().includes('chrome')) || 
-      (/Chrome|CriOS/.test(ua) && !/Edge|Edg|OPR|Chromium|Vivaldi|YaBrowser/.test(ua));
-
-    if (!isChrome && !isAuthApi) {
-      if (isAdminApi) {
-        return NextResponse.json(
-          { error: 'Unauthorized browser. Access restricted to Google Chrome.' }, 
-          { status: 403 }
-        );
-      }
-      // Redirect to home page if not using Chrome
-      return NextResponse.redirect(new URL('/', request.url));
-    }
-
-    // 2. Access verification
+    // Access verification
     if (!isAuthenticated) {
       const isAuthApi = pathname === '/api/admin/auth' || pathname === '/api/admin/check-auth';
       const isLoginPage = pathname === '/admin/login';
