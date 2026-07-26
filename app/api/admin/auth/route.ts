@@ -7,17 +7,25 @@ export async function POST(request: Request) {
   try {
     const { username, password } = await request.json();
     
-    let validPassword = process.env.ADMIN_PASSWORD || 'powerhousegym';
+    let defaultPass = (process.env.ADMIN_PASSWORD || 'powerhousegym').trim();
+    const enteredUser = (username || '').trim().toLowerCase();
+    const enteredPass = (password || '').trim();
 
-    try {
-      await connectToDatabase();
-      const data = await GymData.findOne({});
-      
-      if (data && data.ADMIN_CREDENTIALS) {
-        if (data.ADMIN_CREDENTIALS.password) validPassword = data.ADMIN_CREDENTIALS.password;
+    let isPasswordCorrect = (enteredPass === defaultPass) || (enteredPass === 'powerhousegym');
+
+    // Only query DB for custom password if default check fails
+    if (!isPasswordCorrect) {
+      try {
+        await connectToDatabase();
+        const data = await GymData.findOne({});
+        if (data && data.ADMIN_CREDENTIALS && data.ADMIN_CREDENTIALS.password) {
+          if (enteredPass === data.ADMIN_CREDENTIALS.password.trim()) {
+            isPasswordCorrect = true;
+          }
+        }
+      } catch (e) {
+        console.error('Error reading admin credentials from MongoDB', e);
       }
-    } catch (e) {
-      console.error('Error reading admin credentials from MongoDB', e);
     }
 
     // Configured authorized usernames / emails
@@ -34,11 +42,7 @@ export async function POST(request: Request) {
       ];
     }
 
-    const enteredUser = (username || '').trim().toLowerCase();
-    const enteredPass = (password || '').trim();
-
     const isAuthorized = allowedUsers.some((u) => u.toLowerCase() === enteredUser);
-    const isPasswordCorrect = (enteredPass === validPassword.trim()) || (enteredPass === 'powerhousegym');
 
     if (isAuthorized && isPasswordCorrect) {
       const cookieStore = await cookies();

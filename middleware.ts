@@ -33,14 +33,15 @@ export function middleware(request: NextRequest) {
 
   // Paths that require Chrome & proper authorization
   if (isAdminPath || isAdminApi) {
-    // 1. Enforce Google Chrome browser restriction
+    // 1. Enforce Google Chrome browser restriction (exempting auth API routes so login can complete)
+    const isAuthApi = pathname === '/api/admin/auth' || pathname === '/api/admin/check-auth';
     const ua = request.headers.get('user-agent') || '';
     const { browser } = userAgent(request);
     const isChrome = 
       (browser.name && browser.name.toLowerCase().includes('chrome')) || 
       (/Chrome|CriOS/.test(ua) && !/Edge|Edg|OPR|Chromium|Vivaldi|YaBrowser/.test(ua));
 
-    if (!isChrome) {
+    if (!isChrome && !isAuthApi) {
       if (isAdminApi) {
         return NextResponse.json(
           { error: 'Unauthorized browser. Access restricted to Google Chrome.' }, 
