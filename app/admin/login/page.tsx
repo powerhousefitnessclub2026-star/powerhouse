@@ -25,7 +25,8 @@ export default function LoginPage() {
       });
 
       if (res.ok) {
-        router.push('/admin');
+        router.replace('/admin');
+        router.refresh();
       } else {
         const data = await res.json();
         setError(data.error || data.message || 'Login failed');

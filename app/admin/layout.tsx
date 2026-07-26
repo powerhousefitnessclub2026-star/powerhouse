@@ -46,7 +46,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     await fetch('/api/admin/auth', { method: 'DELETE' });
     // Expire the allowed-session cookie client-side
     document.cookie = 'admin-allowed-session=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC; SameSite=Strict';
-    router.push('/');
+    router.replace('/');
+    router.refresh();
   };
 
   const menuItems = [
