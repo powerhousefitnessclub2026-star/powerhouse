@@ -16,7 +16,7 @@ const inter = Inter({
   display: 'swap',
 });
 
-let siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://powerhousefitness.com';
+let siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://powerhousefitnessclub.vercel.app';
 if (!siteUrl.startsWith('http://') && !siteUrl.startsWith('https://')) {
   siteUrl = 'https://' + siteUrl;
 }
@@ -40,6 +40,9 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: 'Power House Fitness Club' }],
   creator: 'Power House Fitness Club',
+  verification: {
+    google: 'Mokinr5jabLiHRYb8M8reTZ7eRvqPYvrfQMO2ct11VY',
+  },
   openGraph: {
     type: 'website',
     locale: 'en_US',
@@ -120,6 +123,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${bebasNeue.variable} ${inter.variable} dark scroll-smooth`}>
       <head>
+        <meta name="google-site-verification" content="Mokinr5jabLiHRYb8M8reTZ7eRvqPYvrfQMO2ct11VY" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
