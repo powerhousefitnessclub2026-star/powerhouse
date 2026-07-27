@@ -16,6 +16,7 @@ export default function SettingsPage() {
   const [adminPass, setAdminPass] = useState('');
   const [savingAuth, setSavingAuth] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [authFeedback, setAuthFeedback] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
 
   useEffect(() => {
     fetch('/api/admin/data?t=' + Date.now())
@@ -94,23 +95,43 @@ export default function SettingsPage() {
   };
 
   const handleUpdateAuth = async () => {
-    if (!adminUser || !adminPass) return alert('Username and Password cannot be empty');
+    setAuthFeedback(null);
+    const user = adminUser.trim();
+    const pass = adminPass.trim();
+
+    if (!user || !pass) {
+      setAuthFeedback({ type: 'error', message: 'Username and password cannot be empty' });
+      return;
+    }
+    if (user.length < 3) {
+      setAuthFeedback({ type: 'error', message: 'Username must be at least 3 characters long' });
+      return;
+    }
+    if (pass.length < 4) {
+      setAuthFeedback({ type: 'error', message: 'Password must be at least 4 characters long' });
+      return;
+    }
+
     setSavingAuth(true);
     try {
       const res = await fetch('/api/admin/config', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username: adminUser, password: adminPass }),
+        body: JSON.stringify({ username: user, password: pass }),
       });
-      if (res.ok) {
-        alert('Admin credentials updated successfully! You will need to use these next time you login.');
+      const data = await res.json();
+      if (res.ok && data.success) {
+        setAuthFeedback({
+          type: 'success',
+          message: 'Admin credentials updated successfully! Old credentials are disabled and new credentials are active immediately.',
+        });
         setAdminUser('');
         setAdminPass('');
       } else {
-        alert('Failed to update credentials');
+        setAuthFeedback({ type: 'error', message: data.error || data.message || 'Failed to update credentials' });
       }
     } catch (err) {
-      alert('Error updating credentials');
+      setAuthFeedback({ type: 'error', message: 'Error updating credentials. Please try again.' });
     } finally {
       setSavingAuth(false);
     }
@@ -135,6 +156,17 @@ export default function SettingsPage() {
           <Lock className="w-6 h-6" />
           <h2 className="font-heading text-xl uppercase font-bold">Admin Credentials</h2>
         </div>
+
+        {authFeedback && (
+          <div className={`p-4 rounded-xl text-sm font-semibold relative z-10 border ${
+            authFeedback.type === 'success' 
+              ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400' 
+              : 'bg-red-500/10 border-red-500/30 text-red-400'
+          }`}>
+            {authFeedback.message}
+          </div>
+        )}
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 relative z-10 max-w-2xl">
           <div>
             <label className="block text-xs uppercase text-neutral-400 mb-1">New Username</label>
