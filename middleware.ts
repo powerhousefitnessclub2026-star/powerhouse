@@ -4,45 +4,18 @@ import type { NextRequest } from 'next/server';
 export function middleware(request: NextRequest) {
   const token = request.cookies.get('admin-token')?.value;
   const isAuthenticated = token === 'powerhouse-authenticated-session';
-  const isAllowedAccess = request.cookies.get('admin-allowed-session')?.value === 'true';
   const { pathname } = request.nextUrl;
 
   const isAdminPath = pathname.startsWith('/admin');
   const isAdminApi = pathname.startsWith('/api/admin');
 
-  // Handle non-admin paths: Clear admin sessions immediately when navigating away
-  if (!isAdminPath && !isAdminApi) {
-    const hasAdminToken = request.cookies.has('admin-token');
-    const hasAllowedSession = request.cookies.has('admin-allowed-session');
-
-    if (hasAdminToken || hasAllowedSession) {
-      const response = NextResponse.next();
-      if (hasAdminToken) {
-        response.cookies.set('admin-token', '', { maxAge: 0, path: '/' });
-      }
-      if (hasAllowedSession) {
-        response.cookies.set('admin-allowed-session', '', { maxAge: 0, path: '/' });
-      }
-      response.headers.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
-      response.headers.set('Pragma', 'no-cache');
-      response.headers.set('Expires', '0');
-      return response;
-    }
-    return NextResponse.next();
-  }
-
   // Protect all admin pages and API endpoints
   if (isAdminPath || isAdminApi) {
-    // Access verification
     if (!isAuthenticated) {
       const isAuthApi = pathname === '/api/admin/auth' || pathname === '/api/admin/check-auth';
       const isLoginPage = pathname === '/admin/login';
 
-      if (isLoginPage) {
-        // Only allow viewing the login page if they clicked the logo 5 times (have the cookie)
-        if (!isAllowedAccess) {
-          return NextResponse.redirect(new URL('/', request.url));
-        }
+      if (isLoginPage || isAuthApi) {
         const response = NextResponse.next();
         response.headers.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
         response.headers.set('Pragma', 'no-cache');
@@ -50,20 +23,14 @@ export function middleware(request: NextRequest) {
         return response;
       }
 
-      if (isAuthApi) {
-        return NextResponse.next();
-      }
-
-      // Any other admin API/page is protected
+      // API requests return 401 Unauthorized
       if (isAdminApi) {
         return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
       }
 
-      // If they have the allowed session cookie (clicked 5 times), direct to login page. Otherwise, send to home.
-      if (isAllowedAccess) {
-        return NextResponse.redirect(new URL('/admin/login', request.url));
-      }
-      return NextResponse.redirect(new URL('/', request.url));
+      // Unauthenticated page requests to /admin redirect directly to /admin/login
+      const loginUrl = new URL('/admin/login', request.url);
+      return NextResponse.redirect(loginUrl);
     }
   }
 
