@@ -115,8 +115,8 @@ export const Contact: React.FC = () => {
                     <MessageCircle className="w-5 h-5" />
                   </div>
                   <div>
-                    <p className="font-semibold text-white">Email Address</p>
-                    <p className="text-xs text-neutral-400 break-all">{gymInfo.email}</p>
+                    <p className="font-semibold text-white">WhatsApp Number</p>
+                    <p className="text-xs text-neutral-400 break-all">+91 93423 03823</p>
                   </div>
                 </div>
 
