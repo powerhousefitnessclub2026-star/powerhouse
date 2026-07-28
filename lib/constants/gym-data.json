@@ -164,6 +164,19 @@
         "Heart Rate Zones",
         "Group Motivation"
       ]
+    },
+    {
+      "id": "powerlifting",
+      "number": "07",
+      "title": "Powerlifting",
+      "description": "Expert-coached competitive powerlifting program covering Squat, Bench Press, and Deadlift. Train under a National Powerlifting Champion and compete at district, state, and national levels.",
+      "iconName": "Dumbbell",
+      "highlights": [
+        "Squat, Bench & Deadlift",
+        "Competition Coaching",
+        "National Champion Trainer",
+        "Progressive Overload Plans"
+      ]
     }
   ],
   "MEMBERSHIP_PLANS": [
