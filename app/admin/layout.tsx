@@ -53,7 +53,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const menuItems = [
     { name: 'Dashboard / Leads', icon: MessageSquare, path: '/admin' },
     { name: 'Gym Settings', icon: Settings, path: '/admin/settings' },
-    { name: 'Memberships', icon: Dumbbell, path: '/admin/memberships' },
+    { name: 'Services', icon: Dumbbell, path: '/admin/services' },
+    { name: 'Memberships', icon: LayoutDashboard, path: '/admin/memberships' },
     { name: 'Trainers', icon: Users, path: '/admin/trainers' },
     { name: 'Media / Hero', icon: ImageIcon, path: '/admin/media' },
     { name: 'Reviews', icon: Star, path: '/admin/reviews' },
