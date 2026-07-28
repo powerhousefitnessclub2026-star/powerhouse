@@ -1,14 +1,11 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { Save, Loader2, Clock, Lock, List, Plus, Trash2, Eye, EyeOff, Dumbbell } from 'lucide-react';
-
-const ICON_OPTIONS = ['Dumbbell', 'Zap', 'Flame', 'Sparkles', 'BicepsFlexed', 'HeartPulse'];
+import { Save, Loader2, Clock, Lock, List, Plus, Trash2, Eye, EyeOff } from 'lucide-react';
 
 export default function SettingsPage() {
   const [gymInfo, setGymInfo] = useState<any>(null);
   const [contactOptions, setContactOptions] = useState<any>(null);
-  const [services, setServices] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   
   // Section saving states
@@ -27,74 +24,10 @@ export default function SettingsPage() {
       .then(data => {
         setGymInfo(data.GYM_INFO || {});
         setContactOptions(data.CONTACT_OPTIONS || { fitnessGoals: [], preferredTimes: [] });
-        setServices(data.SERVICES || []);
         setLoading(false);
       })
       .catch(console.error);
   }, []);
-
-  // Services CRUD Handlers
-  const handleServiceChange = (index: number, field: string, value: string) => {
-    const updated = [...services];
-    updated[index] = { ...updated[index], [field]: value };
-    setServices(updated);
-  };
-
-  const handleServiceHighlightChange = (sIdx: number, hIdx: number, value: string) => {
-    const updated = [...services];
-    const highlights = [...(updated[sIdx].highlights || [])];
-    highlights[hIdx] = value;
-    updated[sIdx] = { ...updated[sIdx], highlights };
-    setServices(updated);
-  };
-
-  const addServiceHighlight = (sIdx: number) => {
-    const updated = [...services];
-    updated[sIdx] = { ...updated[sIdx], highlights: [...(updated[sIdx].highlights || []), 'New Highlight'] };
-    setServices(updated);
-  };
-
-  const removeServiceHighlight = (sIdx: number, hIdx: number) => {
-    const updated = [...services];
-    const highlights = [...(updated[sIdx].highlights || [])];
-    highlights.splice(hIdx, 1);
-    updated[sIdx] = { ...updated[sIdx], highlights };
-    setServices(updated);
-  };
-
-  const addService = () => {
-    const nextNum = String(services.length + 1).padStart(2, '0');
-    setServices([...services, {
-      id: `service-${Date.now()}`,
-      number: nextNum,
-      title: 'New Service',
-      description: 'Description here.',
-      iconName: 'Dumbbell',
-      highlights: ['Feature 1', 'Feature 2']
-    }]);
-  };
-
-  const removeService = (index: number) => {
-    const updated = [...services];
-    updated.splice(index, 1);
-    setServices(updated);
-  };
-
-  const saveServices = async () => {
-    setSavingSection('Services');
-    try {
-      await fetch('/api/admin/data', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ SERVICES: services }),
-      });
-      alert('Services saved successfully!');
-    } catch (err) {
-      alert('Failed to save services');
-    } finally {
-      setSavingSection(null);
-    }
-  };
 
   const handleChange = (field: string, value: string) => {
     setGymInfo({ ...gymInfo, [field]: value });
@@ -459,125 +392,6 @@ export default function SettingsPage() {
                 ))}
               </div>
             </div>
-          </div>
-        </div>
-
-        {/* Services CRUD */}
-        <div className="bg-[#121212] p-6 rounded-2xl border border-white/10 space-y-6 lg:col-span-2">
-          <div className="flex justify-between items-center">
-            <div className="flex items-center gap-3 text-amber-500">
-              <Dumbbell className="w-6 h-6" />
-              <h2 className="font-heading text-xl uppercase font-bold">Elite Services</h2>
-            </div>
-            <div className="flex items-center gap-3">
-              <button
-                onClick={addService}
-                className="text-xs flex items-center gap-1 text-amber-500 hover:text-amber-400 font-bold uppercase tracking-wider"
-              >
-                <Plus className="w-4 h-4" /> Add Service
-              </button>
-              <button
-                onClick={saveServices}
-                disabled={savingSection === 'Services'}
-                className="flex items-center gap-2 px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 text-white font-bold uppercase text-xs tracking-wider transition-colors disabled:opacity-50"
-              >
-                {savingSection === 'Services' ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
-                Save Services
-              </button>
-            </div>
-          </div>
-
-          <div className="space-y-6">
-            {services.map((service: any, sIdx: number) => (
-              <div key={service.id || sIdx} className="p-5 rounded-xl border border-white/5 bg-black space-y-4">
-                {/* Header row */}
-                <div className="flex items-center justify-between">
-                  <span className="font-heading text-lg font-bold text-amber-400">{service.number}. {service.title}</span>
-                  <button
-                    onClick={() => removeService(sIdx)}
-                    className="p-2 text-neutral-500 hover:text-red-500 transition-colors"
-                    title="Delete Service"
-                  >
-                    <Trash2 className="w-5 h-5" />
-                  </button>
-                </div>
-
-                {/* Fields */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <div>
-                    <label className="block text-[10px] uppercase text-neutral-500 mb-1">Number</label>
-                    <input
-                      type="text"
-                      value={service.number || ''}
-                      onChange={(e) => handleServiceChange(sIdx, 'number', e.target.value)}
-                      className="w-full px-3 py-2 text-sm rounded bg-[#121212] border border-white/5 text-amber-400 font-bold focus:border-amber-500 focus:outline-none"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-[10px] uppercase text-neutral-500 mb-1">Title</label>
-                    <input
-                      type="text"
-                      value={service.title || ''}
-                      onChange={(e) => handleServiceChange(sIdx, 'title', e.target.value)}
-                      className="w-full px-3 py-2 text-sm rounded bg-[#121212] border border-white/5 text-white focus:border-amber-500 focus:outline-none"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-[10px] uppercase text-neutral-500 mb-1">Icon</label>
-                    <select
-                      value={service.iconName || 'Dumbbell'}
-                      onChange={(e) => handleServiceChange(sIdx, 'iconName', e.target.value)}
-                      className="w-full px-3 py-2 text-sm rounded bg-[#121212] border border-white/5 text-white focus:border-amber-500 focus:outline-none"
-                    >
-                      {ICON_OPTIONS.map(icon => (
-                        <option key={icon} value={icon}>{icon}</option>
-                      ))}
-                    </select>
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-[10px] uppercase text-neutral-500 mb-1">Description</label>
-                  <textarea
-                    rows={2}
-                    value={service.description || ''}
-                    onChange={(e) => handleServiceChange(sIdx, 'description', e.target.value)}
-                    className="w-full px-3 py-2 text-sm rounded bg-[#121212] border border-white/5 text-neutral-300 focus:border-amber-500 focus:outline-none resize-none"
-                  />
-                </div>
-
-                {/* Highlights */}
-                <div>
-                  <div className="flex justify-between items-center mb-2">
-                    <label className="block text-[10px] uppercase text-neutral-500">Highlights</label>
-                    <button
-                      onClick={() => addServiceHighlight(sIdx)}
-                      className="text-[10px] flex items-center gap-1 text-amber-500 hover:text-amber-400 font-bold uppercase"
-                    >
-                      <Plus className="w-3 h-3" /> Add
-                    </button>
-                  </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                    {(service.highlights || []).map((h: string, hIdx: number) => (
-                      <div key={hIdx} className="flex gap-2">
-                        <input
-                          type="text"
-                          value={h}
-                          onChange={(e) => handleServiceHighlightChange(sIdx, hIdx, e.target.value)}
-                          className="flex-1 px-3 py-1.5 text-xs rounded bg-[#121212] border border-white/5 text-neutral-300 focus:border-amber-500 focus:outline-none"
-                        />
-                        <button
-                          onClick={() => removeServiceHighlight(sIdx, hIdx)}
-                          className="p-1.5 text-neutral-500 hover:text-red-500 transition-colors"
-                        >
-                          <Trash2 className="w-3.5 h-3.5" />
-                        </button>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            ))}
           </div>
         </div>
 
