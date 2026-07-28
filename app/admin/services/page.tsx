@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { Save, Loader2, Plus, Trash2, Dumbbell } from 'lucide-react';
+import { Save, Loader2, Plus, Trash2, Dumbbell, ArrowUp, ArrowDown } from 'lucide-react';
 
 const ICON_OPTIONS = ['Dumbbell', 'Zap', 'Flame', 'Sparkles', 'BicepsFlexed', 'HeartPulse'];
 
@@ -47,6 +47,18 @@ export default function ServicesPage() {
     highlights.splice(hIdx, 1);
     updated[sIdx] = { ...updated[sIdx], highlights };
     setServices(updated);
+  };
+
+  const moveService = (index: number, direction: 'up' | 'down') => {
+    if (direction === 'up' && index === 0) return;
+    if (direction === 'down' && index === services.length - 1) return;
+    const updated = [...services];
+    const swapIdx = direction === 'up' ? index - 1 : index + 1;
+    // Swap array positions
+    [updated[index], updated[swapIdx]] = [updated[swapIdx], updated[index]];
+    // Re-number sequentially
+    const renumbered = updated.map((s, i) => ({ ...s, number: String(i + 1).padStart(2, '0') }));
+    setServices(renumbered);
   };
 
   const addService = () => {
@@ -147,12 +159,32 @@ export default function ServicesPage() {
                   {service.title}
                 </span>
               </div>
-              <button
-                onClick={() => removeService(sIdx)}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold uppercase text-red-400 hover:bg-red-500/10 hover:text-red-500 transition-colors border border-red-500/20"
-              >
-                <Trash2 className="w-3.5 h-3.5" /> Delete
-              </button>
+              <div className="flex items-center gap-2">
+                {/* Move buttons */}
+                <button
+                  onClick={() => moveService(sIdx, 'up')}
+                  disabled={sIdx === 0}
+                  className="p-1.5 rounded-lg text-neutral-500 hover:text-amber-400 hover:bg-amber-500/10 disabled:opacity-20 disabled:cursor-not-allowed transition-colors"
+                  title="Move Up"
+                >
+                  <ArrowUp className="w-4 h-4" />
+                </button>
+                <button
+                  onClick={() => moveService(sIdx, 'down')}
+                  disabled={sIdx === services.length - 1}
+                  className="p-1.5 rounded-lg text-neutral-500 hover:text-amber-400 hover:bg-amber-500/10 disabled:opacity-20 disabled:cursor-not-allowed transition-colors"
+                  title="Move Down"
+                >
+                  <ArrowDown className="w-4 h-4" />
+                </button>
+                <div className="w-px h-5 bg-white/10 mx-1" />
+                <button
+                  onClick={() => removeService(sIdx)}
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold uppercase text-red-400 hover:bg-red-500/10 hover:text-red-500 transition-colors border border-red-500/20"
+                >
+                  <Trash2 className="w-3.5 h-3.5" /> Delete
+                </button>
+              </div>
             </div>
 
             {/* Service Fields */}

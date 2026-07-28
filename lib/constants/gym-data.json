@@ -127,16 +127,16 @@
       ]
     },
     {
-      "id": "weight-training",
+      "id": "powerlifting",
       "number": "04",
-      "title": "PCOS / PCOD Fitness Support",
-      "description": "Specialized exercise programming and lifestyle guidance tailored to manage PCOS/PCOD symptoms, improve insulin sensitivity, regulate hormones, and support weight management.",
-      "iconName": "HeartPulse",
+      "title": "Powerlifting",
+      "description": "Expert-coached competitive powerlifting program covering Squat, Bench Press, and Deadlift. Train under a National Powerlifting Champion and compete at district, state, and national levels.",
+      "iconName": "Dumbbell",
       "highlights": [
-        "Hormonal Regulation",
-        "Insulin Sensitivity",
-        "Low-Stress Strength",
-        "Lifestyle Coaching"
+        "Squat, Bench & Deadlift",
+        "Competition Coaching",
+        "National Champion Trainer",
+        "Progressive Overload Plans"
       ]
     },
     {
@@ -166,16 +166,16 @@
       ]
     },
     {
-      "id": "powerlifting",
+      "id": "weight-training",
       "number": "07",
-      "title": "Powerlifting",
-      "description": "Expert-coached competitive powerlifting program covering Squat, Bench Press, and Deadlift. Train under a National Powerlifting Champion and compete at district, state, and national levels.",
-      "iconName": "Dumbbell",
+      "title": "PCOS / PCOD Fitness Support",
+      "description": "Specialized exercise programming and lifestyle guidance tailored to manage PCOS/PCOD symptoms, improve insulin sensitivity, regulate hormones, and support weight management.",
+      "iconName": "HeartPulse",
       "highlights": [
-        "Squat, Bench & Deadlift",
-        "Competition Coaching",
-        "National Champion Trainer",
-        "Progressive Overload Plans"
+        "Hormonal Regulation",
+        "Insulin Sensitivity",
+        "Low-Stress Strength",
+        "Lifestyle Coaching"
       ]
     }
   ],
