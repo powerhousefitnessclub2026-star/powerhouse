@@ -16,7 +16,7 @@ export const contactFormSchema = z.object({
     .max(90, 'Maximum age is 90'),
   fitnessGoal: z.string().min(2, 'Please select a fitness goal'),
   preferredTime: z.string().min(2, 'Please select a preferred workout time'),
-  message: z.string().min(10, 'Message must be at least 10 characters').max(1000, 'Message is too long'),
+  message: z.string().max(1000, 'Message is too long').optional().or(z.literal('')),
 });
 
 export type ContactFormData = z.infer<typeof contactFormSchema>;
