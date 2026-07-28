@@ -6,6 +6,7 @@ import { NAV_ITEMS } from '@/lib/constants/navigation';
 import { Logo } from '@/components/brand/Logo';
 import { Button } from '@/components/ui/Button';
 import { MobileDrawer } from '@/components/layout/MobileDrawer';
+import { MusicPlayer } from '@/components/ui/MusicPlayer';
 
 export const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -69,7 +70,8 @@ export const Navbar: React.FC = () => {
           </nav>
 
           {/* Right CTA Button */}
-          <div className="hidden lg:flex items-center gap-3">
+          <div className="hidden lg:flex items-center gap-4">
+            <MusicPlayer />
             <a href="#membership">
               <Button variant="primary" size="sm" className="px-4 py-1.5 text-xs font-bold tracking-wider">
                 Join Now
@@ -77,14 +79,17 @@ export const Navbar: React.FC = () => {
             </a>
           </div>
 
-          {/* Mobile Menu Toggle Button */}
-          <button
-            onClick={() => setMobileDrawerOpen(true)}
-            className="lg:hidden p-2 rounded-xl bg-[#080808]/80 border border-white/10 text-white hover:border-red-500 focus:outline-none focus:ring-2 focus:ring-red-500"
-            aria-label="Open navigation menu"
-          >
-            <Menu className="w-5 h-5" />
-          </button>
+          {/* Mobile Menu Toggle Button & Music Player */}
+          <div className="flex items-center gap-3 lg:hidden">
+            <MusicPlayer />
+            <button
+              onClick={() => setMobileDrawerOpen(true)}
+              className="p-2 rounded-xl bg-[#080808]/80 border border-white/10 text-white hover:border-red-500 focus:outline-none focus:ring-2 focus:ring-red-500"
+              aria-label="Open navigation menu"
+            >
+              <Menu className="w-5 h-5" />
+            </button>
+          </div>
         </div>
       </header>
 
