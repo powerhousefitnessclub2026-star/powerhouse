@@ -21,6 +21,7 @@ const GymDataSchema: Schema = new Schema({
   REVIEWS: { type: [Schema.Types.Mixed], default: [] },
   HERO: { type: Schema.Types.Mixed, default: {} },
   CONTACT_OPTIONS: { type: Schema.Types.Mixed, default: {} },
+  AUDIO_TRACKS: { type: [Schema.Types.Mixed], default: [] },
   ADMIN_CREDENTIALS: { type: Schema.Types.Mixed, default: { username: 'powerhouse', password: 'powerhousegym' } }
 }, { timestamps: true });
 

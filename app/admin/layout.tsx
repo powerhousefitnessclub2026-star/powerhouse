@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { LayoutDashboard, Users, Dumbbell, Image as ImageIcon, Star, LogOut, Loader2, MessageSquare, Settings, Menu, X } from 'lucide-react';
+import { LayoutDashboard, Users, Dumbbell, Image as ImageIcon, Star, LogOut, Loader2, MessageSquare, Settings, Menu, X, Music } from 'lucide-react';
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -58,6 +58,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     { name: 'Trainers', icon: Users, path: '/admin/trainers' },
     { name: 'Media / Hero', icon: ImageIcon, path: '/admin/media' },
     { name: 'Reviews', icon: Star, path: '/admin/reviews' },
+    { name: 'Audio BGM', icon: Music, path: '/admin/audio' },
   ];
 
   return (

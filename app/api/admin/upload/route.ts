@@ -32,6 +32,7 @@ export async function POST(request: Request) {
 
     const uploadResponse = await cloudinary.uploader.upload(dataURI, {
       folder: 'powerhouse',
+      resource_type: 'auto',
     });
 
     return NextResponse.json({ success: true, url: uploadResponse.secure_url });

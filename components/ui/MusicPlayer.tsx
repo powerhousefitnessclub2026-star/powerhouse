@@ -5,15 +5,31 @@ import { Play, Pause, Music } from 'lucide-react';
 
 export const MusicPlayer = () => {
   const [isPlaying, setIsPlaying] = useState(false);
+  const [audioUrl, setAudioUrl] = useState('/assets/audio/bgm.mp3.aac');
+  const [trackTitle, setTrackTitle] = useState('Background Music');
   const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  useEffect(() => {
+    // Fetch active audio track dynamically from database
+    fetch('/api/admin/data?t=' + Date.now())
+      .then((res) => res.json())
+      .then((data) => {
+        const audioTracks = data.AUDIO_TRACKS || [];
+        const activeTrack = audioTracks.find((t: any) => t.active);
+        if (activeTrack && activeTrack.url) {
+          setAudioUrl(activeTrack.url);
+          if (activeTrack.title) setTrackTitle(activeTrack.title);
+        }
+      })
+      .catch((err) => console.log('Audio track fetch error:', err));
+  }, []);
 
   const togglePlay = () => {
     if (audioRef.current) {
       if (isPlaying) {
         audioRef.current.pause();
       } else {
-        // Play method returns a promise which can be rejected if user hasn't interacted
-        audioRef.current.play().catch(e => console.log('Audio play blocked:', e));
+        audioRef.current.play().catch((e) => console.log('Audio play blocked:', e));
       }
       setIsPlaying(!isPlaying);
     }
@@ -31,10 +47,7 @@ export const MusicPlayer = () => {
 
   return (
     <div className="relative flex items-center">
-      {/* 
-        This is where the audio file is loaded from. 
-      */}
-      <audio ref={audioRef} src="/assets/audio/bgm.mp3.aac" loop preload="auto" />
+      <audio ref={audioRef} src={audioUrl} loop preload="auto" />
       
       <button
         onClick={togglePlay}
@@ -43,7 +56,7 @@ export const MusicPlayer = () => {
             ? 'bg-amber-500/20 border-amber-500/50 text-amber-500 shadow-[0_0_15px_rgba(245,158,11,0.3)]' 
             : 'bg-white/5 border-white/10 text-neutral-400 hover:text-white hover:bg-white/10'
         }`}
-        title={isPlaying ? "Pause Music" : "Play Music"}
+        title={isPlaying ? `Pause: ${trackTitle}` : `Play: ${trackTitle}`}
       >
         {isPlaying && (
           <span className="absolute inset-0 rounded-full border border-amber-500 animate-ping opacity-25" />
@@ -51,7 +64,6 @@ export const MusicPlayer = () => {
         
         {isPlaying ? (
           <div className="flex items-center justify-center gap-[2px]">
-            {/* Simple CSS animated sound bars */}
             <div className="w-[2px] h-3 bg-amber-500 rounded-full animate-pulse" style={{ animationDuration: '0.6s' }} />
             <div className="w-[2px] h-4 bg-amber-500 rounded-full animate-pulse" style={{ animationDuration: '0.8s', animationDelay: '0.2s' }} />
             <div className="w-[2px] h-2 bg-amber-500 rounded-full animate-pulse" style={{ animationDuration: '0.7s', animationDelay: '0.4s' }} />
