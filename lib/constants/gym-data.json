@@ -140,8 +140,21 @@
       ]
     },
     {
-      "id": "crossfit",
+      "id": "weight-training",
       "number": "05",
+      "title": "PCOS / PCOD Fitness Support",
+      "description": "Specialized exercise programming and lifestyle guidance tailored to manage PCOS/PCOD symptoms, improve insulin sensitivity, regulate hormones, and support weight management.",
+      "iconName": "HeartPulse",
+      "highlights": [
+        "Hormonal Regulation",
+        "Insulin Sensitivity",
+        "Low-Stress Strength",
+        "Lifestyle Coaching"
+      ]
+    },
+    {
+      "id": "crossfit",
+      "number": "06",
       "title": "CrossFit",
       "description": "High-intensity functional movements designed to push human endurance, power, and agility.",
       "iconName": "Zap",
@@ -154,7 +167,7 @@
     },
     {
       "id": "hiit",
-      "number": "06",
+      "number": "07",
       "title": "HIIT",
       "description": "Rapid, explosive workout intervals optimized to torch fat while preserving lean muscle mass.",
       "iconName": "Flame",
@@ -163,19 +176,6 @@
         "Metabolic Rate Boost",
         "Heart Rate Zones",
         "Group Motivation"
-      ]
-    },
-    {
-      "id": "weight-training",
-      "number": "07",
-      "title": "PCOS / PCOD Fitness Support",
-      "description": "Specialized exercise programming and lifestyle guidance tailored to manage PCOS/PCOD symptoms, improve insulin sensitivity, regulate hormones, and support weight management.",
-      "iconName": "HeartPulse",
-      "highlights": [
-        "Hormonal Regulation",
-        "Insulin Sensitivity",
-        "Low-Stress Strength",
-        "Lifestyle Coaching"
       ]
     }
   ],
