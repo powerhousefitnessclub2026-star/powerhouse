@@ -33,10 +33,8 @@ export const MusicPlayer = () => {
     <div className="relative flex items-center">
       {/* 
         This is where the audio file is loaded from. 
-        You need to put your Tamil song MP3 file inside the `public/audio/` folder 
-        and name it `bgm.mp3` (or change the src here).
       */}
-      <audio ref={audioRef} src="/audio/bgm.mp3" loop preload="none" />
+      <audio ref={audioRef} src="/assets/audio/bgm.mp3.aac" loop preload="none" />
       
       <button
         onClick={togglePlay}
