@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { motion } from 'framer-motion';
-import { Send, Loader2, CheckCircle2, AlertCircle, Phone, Mail, MapPin } from 'lucide-react';
+import { Send, Loader2, CheckCircle2, AlertCircle, Phone, MessageCircle, MapPin } from 'lucide-react';
 import { SectionHeader } from '@/components/ui/SectionHeader';
 import { Card } from '@/components/ui/Card';
 import { Input } from '@/components/ui/Input';
@@ -31,7 +31,7 @@ export const Contact: React.FC = () => {
     defaultValues: {
       name: '',
       phone: '',
-      email: '',
+      whatsappNumber: '',
       gender: 'Male',
       age: 25,
       fitnessGoal: contactOptions?.fitnessGoals?.[0] || 'General Fitness',
@@ -112,7 +112,7 @@ export const Contact: React.FC = () => {
 
                 <div className="flex items-start gap-3">
                   <div className="p-2 rounded-lg bg-red-600/20 text-red-500 shrink-0">
-                    <Mail className="w-5 h-5" />
+                    <MessageCircle className="w-5 h-5" />
                   </div>
                   <div>
                     <p className="font-semibold text-white">Email Address</p>
@@ -185,11 +185,11 @@ export const Contact: React.FC = () => {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   <Input
-                    label="Email Address"
-                    type="email"
-                    placeholder="e.g. lakshan@example.com"
-                    error={errors.email?.message}
-                    {...register('email')}
+                    label="WhatsApp Number"
+                    type="tel"
+                    placeholder="e.g. +91 9342303823"
+                    error={errors.whatsappNumber?.message}
+                    {...register('whatsappNumber')}
                   />
                   <Input
                     label="Age"

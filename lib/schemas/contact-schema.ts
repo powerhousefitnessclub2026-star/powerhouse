@@ -6,7 +6,10 @@ export const contactFormSchema = z.object({
     .string()
     .min(10, 'Phone number must be at least 10 digits')
     .regex(/^[0-9+\s\-()]+$/, 'Invalid phone number format'),
-  email: z.string().email('Please enter a valid email address'),
+  whatsappNumber: z
+    .string()
+    .min(10, 'WhatsApp number must be at least 10 digits')
+    .regex(/^[0-9+\s\-()]+$/, 'Invalid WhatsApp number format'),
   gender: z.enum(['Male', 'Female', 'Other', 'Prefer not to say'], {
     errorMap: () => ({ message: 'Please select a gender' }),
   }),

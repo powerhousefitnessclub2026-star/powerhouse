@@ -20,7 +20,7 @@ export async function POST(request: Request) {
       );
     }
 
-    const { name, phone, email, gender, age, fitnessGoal, preferredTime, message } =
+    const { name, phone, whatsappNumber, gender, age, fitnessGoal, preferredTime, message } =
       validationResult.data;
 
     // Resend Email Integration
@@ -56,8 +56,8 @@ export async function POST(request: Request) {
             <td style="padding: 10px; border-bottom: 1px solid #222; color: #fff;">${phone}</td>
           </tr>
           <tr>
-            <td style="padding: 10px; border-bottom: 1px solid #222; font-weight: bold; color: #aaa;">Email Address:</td>
-            <td style="padding: 10px; border-bottom: 1px solid #222; color: #fff;">${email}</td>
+            <td style="padding: 10px; border-bottom: 1px solid #222; font-weight: bold; color: #aaa;">WhatsApp Number:</td>
+            <td style="padding: 10px; border-bottom: 1px solid #222; color: #fff;">${whatsappNumber}</td>
           </tr>
           <tr>
             <td style="padding: 10px; border-bottom: 1px solid #222; font-weight: bold; color: #aaa;">Gender & Age:</td>
@@ -87,7 +87,6 @@ export async function POST(request: Request) {
     const { data: resendData, error: resendError } = await resend.emails.send({
       from: 'Power House Fitness <onboarding@resend.dev>',
       to: [recipientEmail],
-      replyTo: email,
       subject: `[New Gym Lead] ${name} - ${fitnessGoal}`,
       html: htmlContent,
     });
