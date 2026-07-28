@@ -31,7 +31,7 @@ async function run() {
     console.log('Updating GYM_INFO with local Erode SEO details...');
     data.GYM_INFO = {
       ...data.GYM_INFO,
-      tagline: 'Best Unisex Gym in Erode, Tamil Nadu',
+      tagline: 'Premium Unisex Gym in Erode',
       address: 'Chelliyamman Temple Opp, Manikkampalayam Main Road, Soolai, Erode - 638 004',
       phone: '+91 73739 96262 / +91 93423 03823',
       email: 'powerhousefitnessclub2026@gmail.com'

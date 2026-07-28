@@ -33,6 +33,16 @@ export async function GET() {
     // Strip sensitive admin credentials before sending to client
     const { ADMIN_CREDENTIALS, ...publicData } = data as any;
 
+    // Merge GYM_INFO with static fallback so stale/empty DB fields (e.g. tagline)
+    // are always filled from the latest constants without needing a DB migration.
+    publicData.GYM_INFO = {
+      ...fallbackData.GYM_INFO,         // start with latest static defaults
+      ...publicData.GYM_INFO,           // DB values override static defaults
+      // Re-apply static value for any field that is empty string or null in DB
+      tagline: publicData.GYM_INFO?.tagline || fallbackData.GYM_INFO.tagline,
+      name:    publicData.GYM_INFO?.name    || fallbackData.GYM_INFO.name,
+    };
+
     return NextResponse.json(publicData);
   } catch (error) {
     console.error('Failed to read public data from MongoDB', error);
