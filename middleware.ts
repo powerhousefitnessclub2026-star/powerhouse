@@ -2,9 +2,18 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
 export function middleware(request: NextRequest) {
+  const { hostname, pathname } = request.nextUrl;
+
+  // ─── WWW Canonicalization ────────────────────────────────────────────────
+  // Permanently redirect www → non-www so search engines see one canonical URL
+  if (hostname.startsWith('www.')) {
+    const canonicalUrl = new URL(request.url);
+    canonicalUrl.hostname = hostname.slice(4); // strip "www."
+    return NextResponse.redirect(canonicalUrl, { status: 308 });
+  }
+
   const token = request.cookies.get('admin-token')?.value;
   const isAuthenticated = token === 'powerhouse-authenticated-session';
-  const { pathname } = request.nextUrl;
 
   const isAdminPath = pathname.startsWith('/admin');
   const isAdminApi = pathname.startsWith('/api/admin');

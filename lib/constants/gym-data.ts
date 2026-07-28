@@ -68,7 +68,7 @@ export const HERO: HeroConfig = {
 
 export const GYM_INFO = {
   name: 'Power House Fitness Club',
-  tagline: '',
+  tagline: 'Premium Unisex Gym in Erode',
   admissionFee: '₹500',
   address: 'Chelliyamman Temple Opp, Manikkampalayam Main Road, Soolai, Erode - 638 004',
   phone: '+91 73739 96262 / +91 93423 03823',

@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: `${GYM_INFO.name} | ${GYM_INFO.tagline}`,
   description:
-    'Power House Fitness Club is a luxury unisex gym featuring modern biomechanical equipment, CrossFit rigs, HIIT training, master coaching, and ₹500 flat admission fee.',
+    'Power House Fitness Club — luxury unisex gym with biomechanical equipment, CrossFit rigs, HIIT training, master coaching & ₹500 flat admission fee.',
   keywords: [
     'Power House Fitness Club',
     'Luxury Gym',
