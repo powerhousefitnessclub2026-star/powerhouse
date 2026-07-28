@@ -34,7 +34,7 @@ export const GymDataProvider: React.FC<{
 
   const refreshData = async () => {
     try {
-      const res = await fetch(`/api/admin/data?t=${Date.now()}`);
+      const res = await fetch(`/api/data?t=${Date.now()}`);
       if (res.ok) {
         const json = await res.json();
         setData({
