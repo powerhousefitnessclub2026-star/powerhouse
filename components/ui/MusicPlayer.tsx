@@ -34,7 +34,7 @@ export const MusicPlayer = () => {
       {/* 
         This is where the audio file is loaded from. 
       */}
-      <audio ref={audioRef} src="/assets/audio/bgm.mp3.aac" loop preload="none" />
+      <audio ref={audioRef} src="/assets/audio/bgm.mp3.aac" loop preload="auto" />
       
       <button
         onClick={togglePlay}
