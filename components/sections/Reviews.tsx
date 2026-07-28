@@ -21,6 +21,7 @@ export const Reviews: React.FC = () => {
   const [newRating, setNewRating] = useState(5);
   const [newAchievement, setNewAchievement] = useState('Muscle Gain');
   const [newComment, setNewComment] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Load approved reviews
   useEffect(() => {
@@ -53,6 +54,7 @@ export const Reviews: React.FC = () => {
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!newName.trim() || !newComment.trim()) return;
+    if (isSubmitting) return; // prevent double submit
 
     const newReviewItem: Review = {
       id: `custom-${Date.now()}`,
@@ -65,6 +67,7 @@ export const Reviews: React.FC = () => {
       status: 'pending',
     };
 
+    setIsSubmitting(true);
     try {
       const res = await fetch('/api/reviews', {
         method: 'POST',
@@ -87,8 +90,11 @@ export const Reviews: React.FC = () => {
     } catch (err) {
       console.error(err);
       alert('Network error. Failed to submit review.');
+    } finally {
+      setIsSubmitting(false);
     }
   };
+
 
   // Delete functionality removed as it is now exclusively in the admin panel
 
@@ -299,9 +305,10 @@ export const Reviews: React.FC = () => {
 
                 <button
                   type="submit"
-                  className="w-full py-4 rounded-xl bg-amber-500 hover:bg-amber-600 text-black font-bold uppercase tracking-wider transition-colors mt-2 cursor-pointer"
+                  disabled={isSubmitting}
+                  className="w-full py-4 rounded-xl bg-amber-500 hover:bg-amber-600 disabled:opacity-50 disabled:cursor-not-allowed text-black font-bold uppercase tracking-wider transition-colors mt-2 cursor-pointer"
                 >
-                  Submit Review
+                  {isSubmitting ? 'Submitting...' : 'Submit Review'}
                 </button>
               </form>
             </motion.div>
