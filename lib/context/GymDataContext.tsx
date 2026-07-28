@@ -54,7 +54,16 @@ export const GymDataProvider: React.FC<{
   };
 
   useEffect(() => {
+    // Initial fetch on mount
     refreshData();
+
+    // Poll every 30 seconds so admin changes (gallery, reviews, etc.)
+    // appear on the website without visitors needing to manually refresh
+    const interval = setInterval(() => {
+      refreshData();
+    }, 30_000);
+
+    return () => clearInterval(interval);
   }, []);
 
   return (
