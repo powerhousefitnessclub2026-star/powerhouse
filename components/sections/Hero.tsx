@@ -210,17 +210,11 @@ export const Hero: React.FC = () => {
           <div className="absolute inset-y-0 right-0 w-8 sm:w-16 bg-gradient-to-l from-[#080808] to-transparent z-10 pointer-events-none" />
 
           <div className="animate-marquee flex items-center gap-12 whitespace-nowrap text-xs sm:text-sm font-semibold tracking-wider text-white">
-            {[...Array(4)].map((_, i) => (
+            {[...Array(3)].map((_, i) => (
               <React.Fragment key={i}>
-                <span>Elite Equipment</span>
-                <span className="text-red-500">✦</span>
-                <span>Expert Coaching</span>
-                <span className="text-red-500">✦</span>
-                <span>Dedicated Workout Zones</span>
-                <span className="text-red-500">✦</span>
-                <span>Personalized Fitness</span>
-                <span className="text-red-500">✦</span>
-                <span>Proven Results</span>
+                <span>
+                  {formatPowerHouse('Your Strength. Your Journey. Your Transformation. Visit Power House Fitness Club Today.')}
+                </span>
                 <span className="text-red-500">✦</span>
               </React.Fragment>
             ))}
