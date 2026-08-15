@@ -148,7 +148,7 @@ export const Hero: React.FC = () => {
           transition={{ duration: 0.8, delay: 0.4 }}
           className="text-base sm:text-lg md:text-xl text-neutral-300 font-sans max-w-4xl mx-auto leading-relaxed mb-10"
         >
-          {formatPowerHouse('Step into Power House Fitness Club — Erode’s premier unisex gym featuring premium bio-mechanical equipment, high-intensity CrossFit training, separate workout zones, and certified master coaching.')}
+          {formatPowerHouse('Step into Power House Fitness Club — Erode’s premium unisex facility featuring biomechanically optimized resistance machines, high-burn functional zones, and expert-led coaching tailored for all levels.')}
         </motion.p>
 
         {/* Action Buttons */}
@@ -171,30 +171,45 @@ export const Hero: React.FC = () => {
           </a>
         </motion.div>
 
-        {/* Key Stats Bar */}
+        {/* Infinite Scrolling Stats Bar */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.8 }}
-          className="mt-16 sm:mt-20 grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-10 w-full max-w-4xl bg-[#080808]/80 backdrop-blur-xl p-6 sm:p-8 rounded-2xl border border-white/10 shadow-2xl shadow-black/80"
+          className="mt-16 sm:mt-20 w-full max-w-4xl overflow-hidden bg-[#080808]/80 backdrop-blur-xl py-5 rounded-2xl border border-white/10 shadow-2xl shadow-black/80 relative"
         >
-          <div className="text-center">
-            <span className="block font-heading text-3xl sm:text-4xl font-bold text-red-500">100%</span>
-            <span className="text-xs sm:text-sm text-neutral-400 font-semibold uppercase tracking-wider">Unisex Gym</span>
-          </div>
-          <div className="text-center">
-<span className="block font-heading text-3xl sm:text-4xl font-bold text-white">
-  5.0 <span className="text-white">★</span>
-</span>
-<span className="text-xs sm:text-sm text-neutral-400 font-semibold uppercase tracking-wider">Google Reviews</span>
-          </div>
-          <div className="text-center">
-            <span className="block font-heading text-3xl sm:text-4xl font-bold text-red-500">50</span>
-            <span className="text-xs sm:text-sm text-neutral-400 font-semibold uppercase tracking-wider">Transformations</span>
-          </div>
-          <div className="text-center">
-            <span className="block font-heading text-3xl sm:text-4xl font-bold text-white">100%</span>
-            <span className="text-xs sm:text-sm text-neutral-400 font-semibold uppercase tracking-wider">Certified Coaching</span>
+          {/* Edge Fade Gradients for Luxury Look */}
+          <div className="absolute inset-y-0 left-0 w-8 sm:w-16 bg-gradient-to-r from-[#080808] to-transparent z-10 pointer-events-none" />
+          <div className="absolute inset-y-0 right-0 w-8 sm:w-16 bg-gradient-to-l from-[#080808] to-transparent z-10 pointer-events-none" />
+
+          <div className="animate-marquee flex items-center gap-8 sm:gap-12 whitespace-nowrap">
+            {[...Array(3)].map((_, i) => (
+              <React.Fragment key={i}>
+                <div className="flex items-center gap-2.5 sm:gap-3 shrink-0">
+                  <span className="font-heading text-2xl sm:text-3xl font-extrabold text-red-500">100%</span>
+                  <span className="text-[10px] sm:text-xs text-neutral-300 font-semibold uppercase tracking-wider">Unisex Gym</span>
+                </div>
+                <span className="text-red-500/50 text-sm shrink-0">•</span>
+                
+                <div className="flex items-center gap-2.5 sm:gap-3 shrink-0">
+                  <span className="font-heading text-2xl sm:text-3xl font-extrabold text-white">5.0 ★</span>
+                  <span className="text-[10px] sm:text-xs text-neutral-300 font-semibold uppercase tracking-wider">Google Reviews</span>
+                </div>
+                <span className="text-red-500/50 text-sm shrink-0">•</span>
+                
+                <div className="flex items-center gap-2.5 sm:gap-3 shrink-0">
+                  <span className="font-heading text-2xl sm:text-3xl font-extrabold text-red-500">50+</span>
+                  <span className="text-[10px] sm:text-xs text-neutral-300 font-semibold uppercase tracking-wider">Transformations</span>
+                </div>
+                <span className="text-red-500/50 text-sm shrink-0">•</span>
+                
+                <div className="flex items-center gap-2.5 sm:gap-3 shrink-0">
+                  <span className="font-heading text-2xl sm:text-3xl font-extrabold text-white">100%</span>
+                  <span className="text-[10px] sm:text-xs text-neutral-300 font-semibold uppercase tracking-wider">Certified Coaching</span>
+                </div>
+                <span className="text-red-500/50 text-sm shrink-0">•</span>
+              </React.Fragment>
+            ))}
           </div>
         </motion.div>
       </div>
