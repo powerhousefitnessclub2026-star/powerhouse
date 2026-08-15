@@ -197,6 +197,35 @@ export const Hero: React.FC = () => {
             <span className="text-xs sm:text-sm text-neutral-400 font-semibold uppercase tracking-wider">Certified Coaching</span>
           </div>
         </motion.div>
+
+        {/* Running Highlight Marquee Banner */}
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 1.0 }}
+          className="mt-6 w-full max-w-4xl overflow-hidden py-3 bg-[#080808]/60 backdrop-blur-md rounded-xl border border-white/5 relative"
+        >
+          {/* Edge Fade Gradients for Luxury Look */}
+          <div className="absolute inset-y-0 left-0 w-8 sm:w-16 bg-gradient-to-r from-[#080808] to-transparent z-10 pointer-events-none" />
+          <div className="absolute inset-y-0 right-0 w-8 sm:w-16 bg-gradient-to-l from-[#080808] to-transparent z-10 pointer-events-none" />
+
+          <div className="animate-marquee flex items-center gap-12 whitespace-nowrap text-xs sm:text-sm font-semibold tracking-wider text-white">
+            {[...Array(4)].map((_, i) => (
+              <React.Fragment key={i}>
+                <span>Elite Equipment</span>
+                <span className="text-red-500">✦</span>
+                <span>Expert Coaching</span>
+                <span className="text-red-500">✦</span>
+                <span>Dedicated Workout Zones</span>
+                <span className="text-red-500">✦</span>
+                <span>Personalized Fitness</span>
+                <span className="text-red-500">✦</span>
+                <span>Proven Results</span>
+                <span className="text-red-500">✦</span>
+              </React.Fragment>
+            ))}
+          </div>
+        </motion.div>
       </div>
 
       {/* Down Arrow */}
