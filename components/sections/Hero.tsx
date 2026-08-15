@@ -198,27 +198,16 @@ export const Hero: React.FC = () => {
           </div>
         </motion.div>
 
-        {/* Running Highlight Marquee Banner */}
+        {/* Running Highlight Banner */}
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 1.0 }}
-          className="mt-6 w-full max-w-4xl overflow-hidden py-3 bg-[#080808]/60 backdrop-blur-md rounded-xl border border-white/5 relative"
+          className="mt-6 w-full max-w-4xl py-3.5 px-6 bg-[#080808]/60 backdrop-blur-md rounded-xl border border-white/5 shadow-lg text-center text-xs sm:text-sm font-semibold tracking-wider text-white"
         >
-          {/* Edge Fade Gradients for Luxury Look */}
-          <div className="absolute inset-y-0 left-0 w-8 sm:w-16 bg-gradient-to-r from-[#080808] to-transparent z-10 pointer-events-none" />
-          <div className="absolute inset-y-0 right-0 w-8 sm:w-16 bg-gradient-to-l from-[#080808] to-transparent z-10 pointer-events-none" />
-
-          <div className="animate-marquee flex items-center gap-12 whitespace-nowrap text-xs sm:text-sm font-semibold tracking-wider text-white">
-            {[...Array(3)].map((_, i) => (
-              <React.Fragment key={i}>
-                <span>
-                  {formatPowerHouse('Your Strength. Your Journey. Your Transformation. Visit Power House Fitness Club Today.')}
-                </span>
-                <span className="text-red-500">✦</span>
-              </React.Fragment>
-            ))}
-          </div>
+          <span>
+            {formatPowerHouse('Your Strength. Your Journey. Your Transformation. Visit Power House Fitness Club Today.')}
+          </span>
         </motion.div>
       </div>
 
