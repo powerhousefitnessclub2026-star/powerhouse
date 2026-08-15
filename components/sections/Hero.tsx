@@ -148,7 +148,9 @@ export const Hero: React.FC = () => {
           transition={{ duration: 0.8, delay: 0.4 }}
           className="text-base sm:text-lg md:text-xl text-neutral-300 font-sans max-w-4xl mx-auto leading-relaxed mb-10"
         >
-          {formatPowerHouse('Step into Power House Fitness Club — Erode’s premium unisex facility featuring biomechanically optimized resistance machines, high-burn functional zones, and expert-led coaching tailored for all levels.')}
+          {formatPowerHouse('Step into Power House Fitness Club —')}
+          <br className="hidden md:inline" />
+          {' Erode’s premium unisex fitness destination built for smarter training, stronger bodies, and lasting transformation.'}
         </motion.p>
 
         {/* Action Buttons */}
