@@ -203,10 +203,10 @@ export const Hero: React.FC = () => {
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 1.0 }}
-          className="mt-6 w-full max-w-4xl py-3.5 px-6 bg-[#080808]/60 backdrop-blur-md rounded-xl border border-white/5 shadow-lg text-center text-xs sm:text-sm font-semibold tracking-wider text-white"
+          className="mt-6 w-full max-w-4xl py-4 px-6 bg-[#080808]/80 backdrop-blur-md rounded-2xl border border-red-500/20 shadow-[0_0_25px_rgba(220,38,38,0.15)] text-center text-sm sm:text-base md:text-lg font-semibold tracking-wide text-neutral-200 font-sans"
         >
           <span>
-            {formatPowerHouse('Your Strength. Your Journey. Your Transformation. Visit Power House Fitness Club Today.')}
+            Your <span className="text-amber-400 font-extrabold">Strength</span>. Your <span className="text-amber-400 font-extrabold">Journey</span>. Your <span className="text-amber-400 font-extrabold">Transformation</span>. Visit {formatPowerHouse('Power House Fitness Club')} Today.
           </span>
         </motion.div>
       </div>
