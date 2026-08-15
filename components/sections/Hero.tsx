@@ -146,9 +146,9 @@ export const Hero: React.FC = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="text-base sm:text-lg md:text-xl text-neutral-300 font-sans max-w-3xl mx-auto leading-relaxed mb-10"
+          className="text-base sm:text-lg md:text-xl text-neutral-300 font-sans max-w-4xl mx-auto leading-relaxed mb-10"
         >
-          {formatPowerHouse('Step into Power House Fitness Club. Featuring world-class biomechanical equipment, high-intensity CrossFit rigs, personal transformation blueprints, and master trainer.')}
+          {formatPowerHouse('Step into Power House Fitness Club — Erode’s premier unisex gym featuring premium bio-mechanical equipment, high-intensity CrossFit training, separate workout zones, and certified master coaching.')}
         </motion.p>
 
         {/* Action Buttons */}
@@ -193,8 +193,8 @@ export const Hero: React.FC = () => {
             <span className="text-xs sm:text-sm text-neutral-400 font-semibold uppercase tracking-wider">Transformations</span>
           </div>
           <div className="text-center">
-            <span className="block font-heading text-3xl sm:text-4xl font-bold text-white">₹500</span>
-            <span className="text-xs sm:text-sm text-neutral-400 font-semibold uppercase tracking-wider">Admission Fee</span>
+            <span className="block font-heading text-3xl sm:text-4xl font-bold text-white">100%</span>
+            <span className="text-xs sm:text-sm text-neutral-400 font-semibold uppercase tracking-wider">Certified Coaching</span>
           </div>
         </motion.div>
       </div>

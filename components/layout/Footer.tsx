@@ -90,7 +90,7 @@ export const Footer: React.FC = () => {
               ))}
               <div className="pt-2 text-xs text-red-400 font-medium bg-red-950/20 border border-red-900/30 p-2.5 rounded-xl flex items-center gap-2">
                 <Dumbbell className="w-4 h-4 shrink-0 text-amber-400" />
-                <span>Admission Fee: {gymInfo.admissionFee} (One-time)</span>
+                <span>Unisex Fitness Club • Erode</span>
               </div>
             </div>
           </div>

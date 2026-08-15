@@ -69,7 +69,7 @@ export const HERO: HeroConfig = {
 export const GYM_INFO = {
   name: 'Power House Fitness Club',
   tagline: 'Premium Unisex Gym in Erode',
-  admissionFee: '₹500',
+  admissionFee: 'Included',
   address: 'Chelliyamman Temple Opp, Manikkampalayam Main Road, Soolai, Erode - 638 004',
   phone: '+91 73739 96262 / +91 93423 03823',
   email: 'powerhousefitnessclub2026@gmail.com',
@@ -217,7 +217,7 @@ export const MEMBERSHIP_PLANS: MembershipPlan[] = [
     duration: '1 Month',
     strengthPrice: '₹799',
     cardioStrengthPrice: '₹999',
-    admissionFee: '₹500 (One-time)',
+    admissionFee: 'Included',
     featured: false,
     features: [
       'Full Gym Floor Access',
@@ -232,7 +232,7 @@ export const MEMBERSHIP_PLANS: MembershipPlan[] = [
     duration: '3 Months',
     strengthPrice: '₹2,199',
     cardioStrengthPrice: '₹3,499',
-    admissionFee: '₹500 (One-time)',
+    admissionFee: 'Included',
     featured: false,
     features: [
       '3 Months Continuous Membership',
@@ -247,7 +247,7 @@ export const MEMBERSHIP_PLANS: MembershipPlan[] = [
     duration: '6 Months',
     strengthPrice: '₹4,199',
     cardioStrengthPrice: '₹5,499',
-    admissionFee: '₹500 (One-time)',
+    admissionFee: 'Included',
     featured: true,
     badge: 'POPULAR CHOICE',
     features: [
@@ -263,7 +263,7 @@ export const MEMBERSHIP_PLANS: MembershipPlan[] = [
     duration: '12 Months',
     strengthPrice: '₹6,999',
     cardioStrengthPrice: '₹8,999',
-    admissionFee: '₹500 (One-time)',
+    admissionFee: 'Included',
     featured: true,
     badge: 'BEST VALUE',
     features: [

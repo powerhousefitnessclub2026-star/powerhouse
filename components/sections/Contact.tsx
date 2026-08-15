@@ -75,7 +75,7 @@ export const Contact: React.FC = () => {
         <SectionHeader
           badge="GET IN TOUCH"
           title="START YOUR TRANSFORMATION"
-          description="Book a complimentary consultation, claim your ₹500 admission privileges, or inquire about master coaching."
+          description="Book a complimentary consultation, inquire about membership plans, or connect with master coaches."
         />
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 max-w-6xl mx-auto items-start">

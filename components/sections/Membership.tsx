@@ -20,10 +20,10 @@ export const Membership: React.FC = () => {
         <SectionHeader
           badge="OFFICIAL SUBSCRIPTION PLANS"
           title="MEMBERSHIP PACKAGES"
-          description="Flexible, transparent membership plans designed for every fitness goal. One-time Admission Fee: ₹500 across all tiers."
+          description="Flexible, transparent membership plans designed for every fitness goal with master coaching and customized workouts."
         />
 
-        {/* Admission Fee & Timings Banner */}
+        {/* Special Offer & Timings Banner */}
         <motion.div
           variants={FADE_IN_UP}
           initial="hidden"
@@ -37,16 +37,16 @@ export const Membership: React.FC = () => {
             </div>
             <div>
               <p className="font-heading text-xl uppercase font-bold text-white leading-tight">
-                ADMISSION FEE: {gymInfo.admissionFee} ONLY
+                SPECIAL MEMBERSHIP PACKAGES
               </p>
               <p className="text-xs sm:text-sm text-neutral-300 font-sans mt-0.5">
-                One-time registration fee applies to all subscription packages.
+                All packages include personalized workout routines and professional guidance.
               </p>
             </div>
           </div>
           <a href="#contact">
             <Button variant="primary" size="sm" className="shrink-0 px-6 py-2 text-xs font-bold uppercase tracking-wider">
-              Claim Admission Offer
+              Get Started Now
             </Button>
           </a>
         </motion.div>
