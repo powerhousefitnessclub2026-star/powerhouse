@@ -231,7 +231,7 @@ export const Hero: React.FC = () => {
       {/* Down Arrow */}
       <a
         href="#about"
-        className="absolute bottom-6 left-1/2 -translate-x-1/2 z-10 p-3 rounded-full bg-white/5 border border-white/10 text-neutral-400 hover:text-red-500 hover:border-red-500 transition-colors animate-bounce"
+        className="absolute bottom-3 left-1/2 -translate-x-1/2 z-10 p-3 rounded-full bg-white/5 border border-white/10 text-neutral-400 hover:text-red-500 hover:border-red-500 transition-colors animate-bounce"
         aria-label="Scroll to about section"
       >
         <ArrowDown className="w-5 h-5" />
