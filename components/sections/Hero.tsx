@@ -148,7 +148,7 @@ export const Hero: React.FC = () => {
           transition={{ duration: 0.8, delay: 0.4 }}
           className="text-base sm:text-lg md:text-xl text-neutral-300 font-sans max-w-4xl mx-auto leading-relaxed mb-10"
         >
-          {formatPowerHouse('Step into Power House Fitness Club —')}
+          {formatPowerHouse('Step into Power House Fitness Club')}
           <br className="hidden md:inline" />
           {' Erode’s premium unisex fitness destination built for smarter training, stronger bodies, and lasting transformation.'}
         </motion.p>
@@ -181,22 +181,22 @@ export const Hero: React.FC = () => {
           className="mt-16 sm:mt-20 grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-10 w-full max-w-4xl bg-[#080808]/80 backdrop-blur-xl p-6 sm:p-8 rounded-2xl border border-white/10 shadow-2xl shadow-black/80"
         >
           <div className="text-center">
-            <span className="block font-heading text-3xl sm:text-4xl font-bold text-red-500">100%</span>
-            <span className="text-xs sm:text-sm text-neutral-400 font-semibold uppercase tracking-wider">Unisex Gym</span>
+            <span className="block font-heading text-3xl sm:text-4xl font-bold text-red-500">YOUR FIRST</span>
+            <span className="text-xs sm:text-sm text-neutral-400 font-semibold uppercase tracking-wider">SESSION FREE</span>
           </div>
           <div className="text-center">
-            <span className="block font-heading text-3xl sm:text-4xl font-bold text-white">
+            <span className="block font-heading text-3xl sm:text-4xl font-bold text-white">50+</span>
+            <span className="text-xs sm:text-sm text-neutral-400 font-semibold uppercase tracking-wider">TRANSFORMATIONS</span>
+          </div>
+          <div className="text-center">
+            <span className="block font-heading text-3xl sm:text-4xl font-bold text-red-500">
               5.0 <span className="text-white">★</span>
             </span>
-            <span className="text-xs sm:text-sm text-neutral-400 font-semibold uppercase tracking-wider">Google Reviews</span>
-          </div>
-          <div className="text-center">
-            <span className="block font-heading text-3xl sm:text-4xl font-bold text-red-500">50</span>
-            <span className="text-xs sm:text-sm text-neutral-400 font-semibold uppercase tracking-wider">Transformations</span>
+            <span className="text-xs sm:text-sm text-neutral-400 font-semibold uppercase tracking-wider">GOOGLE REVIEWS</span>
           </div>
           <div className="text-center">
             <span className="block font-heading text-3xl sm:text-4xl font-bold text-white">100%</span>
-            <span className="text-xs sm:text-sm text-neutral-400 font-semibold uppercase tracking-wider">Certified Coaching</span>
+            <span className="text-xs sm:text-sm text-neutral-400 font-semibold uppercase tracking-wider">UNISEX GYM</span>
           </div>
         </motion.div>
 
