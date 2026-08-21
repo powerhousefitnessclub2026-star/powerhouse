@@ -181,8 +181,8 @@ export const Hero: React.FC = () => {
           className="mt-16 sm:mt-20 grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-10 w-full max-w-4xl bg-[#080808]/80 backdrop-blur-xl p-6 sm:p-8 rounded-2xl border border-white/10 shadow-2xl shadow-black/80"
         >
           <div className="text-center">
-            <span className="block font-heading text-xl sm:text-2xl lg:text-3xl font-bold text-white whitespace-nowrap">YOUR FIRST</span>
-            <span className="text-xs sm:text-sm text-neutral-400 font-semibold uppercase tracking-wider">SESSION FREE</span>
+            <span className="block font-heading text-xl sm:text-2xl lg:text-3xl font-bold text-white whitespace-nowrap">YOUR FIRST VISIT</span>
+            <span className="text-xs sm:text-sm text-neutral-400 font-semibold uppercase tracking-wider">FREE</span>
           </div>
           <div className="text-center">
             <span className="block font-heading text-3xl sm:text-4xl font-bold text-white whitespace-nowrap">50+</span>
