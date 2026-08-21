@@ -181,21 +181,19 @@ export const Hero: React.FC = () => {
           className="mt-16 sm:mt-20 grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-10 w-full max-w-4xl bg-[#080808]/80 backdrop-blur-xl p-6 sm:p-8 rounded-2xl border border-white/10 shadow-2xl shadow-black/80"
         >
           <div className="text-center">
-            <span className="block font-heading text-3xl sm:text-4xl font-bold text-red-500">YOUR FIRST</span>
+            <span className="block font-heading text-2xl sm:text-3xl lg:text-4xl font-bold text-white whitespace-nowrap">YOUR FIRST</span>
             <span className="text-xs sm:text-sm text-neutral-400 font-semibold uppercase tracking-wider">SESSION FREE</span>
           </div>
           <div className="text-center">
-            <span className="block font-heading text-3xl sm:text-4xl font-bold text-white">50+</span>
+            <span className="block font-heading text-2xl sm:text-3xl lg:text-4xl font-bold text-white whitespace-nowrap">50+</span>
             <span className="text-xs sm:text-sm text-neutral-400 font-semibold uppercase tracking-wider">TRANSFORMATIONS</span>
           </div>
           <div className="text-center">
-            <span className="block font-heading text-3xl sm:text-4xl font-bold text-red-500">
-              5.0 <span className="text-white">★</span>
-            </span>
+            <span className="block font-heading text-2xl sm:text-3xl lg:text-4xl font-bold text-white whitespace-nowrap">5.0 ★</span>
             <span className="text-xs sm:text-sm text-neutral-400 font-semibold uppercase tracking-wider">GOOGLE REVIEWS</span>
           </div>
           <div className="text-center">
-            <span className="block font-heading text-3xl sm:text-4xl font-bold text-white">100%</span>
+            <span className="block font-heading text-2xl sm:text-3xl lg:text-4xl font-bold text-white whitespace-nowrap">100%</span>
             <span className="text-xs sm:text-sm text-neutral-400 font-semibold uppercase tracking-wider">UNISEX GYM</span>
           </div>
         </motion.div>
