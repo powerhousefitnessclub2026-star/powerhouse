@@ -178,21 +178,21 @@ export const Hero: React.FC = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.8 }}
-          className="mt-16 sm:mt-20 grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-10 w-full max-w-4xl bg-[#080808]/80 backdrop-blur-xl p-6 sm:p-8 rounded-2xl border border-white/10 shadow-2xl shadow-black/80"
+          className="mt-16 sm:mt-20 grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 lg:gap-8 w-full max-w-4xl bg-[#080808]/80 backdrop-blur-xl p-6 sm:p-8 rounded-2xl border border-white/10 shadow-2xl shadow-black/80"
         >
-          <div className="text-center">
-            <span className="block font-heading text-xl sm:text-2xl lg:text-3xl font-bold text-white whitespace-nowrap">YOUR FIRST VISIT</span>
+          <div className="text-center px-1">
+            <span className="block font-heading text-lg sm:text-2xl md:text-xl lg:text-2xl font-bold text-white whitespace-nowrap tracking-tight">YOUR FIRST VISIT</span>
             <span className="text-xs sm:text-sm text-neutral-400 font-semibold uppercase tracking-wider">FREE</span>
           </div>
-          <div className="text-center">
+          <div className="text-center px-1">
             <span className="block font-heading text-3xl sm:text-4xl font-bold text-white whitespace-nowrap">50+</span>
             <span className="text-xs sm:text-sm text-neutral-400 font-semibold uppercase tracking-wider">TRANSFORMATIONS</span>
           </div>
-          <div className="text-center">
+          <div className="text-center px-1">
             <span className="block font-heading text-3xl sm:text-4xl font-bold text-white whitespace-nowrap">5.0 ★</span>
             <span className="text-xs sm:text-sm text-neutral-400 font-semibold uppercase tracking-wider">GOOGLE REVIEWS</span>
           </div>
-          <div className="text-center">
+          <div className="text-center px-1">
             <span className="block font-heading text-3xl sm:text-4xl font-bold text-white whitespace-nowrap">100%</span>
             <span className="text-xs sm:text-sm text-neutral-400 font-semibold uppercase tracking-wider">UNISEX GYM</span>
           </div>
